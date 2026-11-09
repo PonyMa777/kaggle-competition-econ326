@@ -1,4 +1,4 @@
-# Econ326
+# Kaggle Competition / Econ 326
 ## Update — 2026-10-28
 
 1. **Feature selection：避免 over-controlling（过度控制）。** 选择控制变量时，要明确“保持其他变量不变”是否符合研究问题，避免因控制不恰当的变量而改变系数的含义。对于本项目的预测目标，仍以交叉验证的样本外误差比较 feature 方案；预测关系不自动代表因果作用。
