@@ -48,30 +48,30 @@ The table uses the numeric scores defined above for ordered quality and conditio
 
 | No. | Variable | Mean | SD | Min | Max |
 |---:|---|---:|---:|---:|---:|
-| 1  SalePrice (USD) | 180,921 | 79,443 | 34,900 | 755,000 |
-| 2  log(SalePrice) | 12.024 | 0.400 | 10.460 | 13.535 |
-| 3  LotArea (sq ft) | 10,517 | 9,981 | 1,300 | 215,245 |
-| 4  OverallQual | 6.099 | 1.383 | 1 | 10 |
-| 5  OverallCond | 5.575 | 1.113 | 1 | 9 |
-| 6  YearBuilt | 1971.268 | 30.203 | 1872 | 2010 |
-| 7  YearRemodAdd | 1984.866 | 20.645 | 1950 | 2010 |
-| 8  ExterQual (score) | 3.396 | 0.574 | 2 | 5 |
-| 9  ExterCond (score) | 3.084 | 0.351 | 1 | 5 |
-| 10  BsmtQual (score) | 3.489 | 0.876 | 0 | 5 |
-| 11  BsmtCond (score) | 2.935 | 0.552 | 0 | 4 |
-| 12  BsmtExposure (score) | 1.631 | 1.067 | 0 | 4 |
-| 13  HeatingQC (score) | 4.145 | 0.960 | 1 | 5 |
-| 14  GrLivArea (sq ft) | 1,515 | 525 | 334 | 5,642 |
-| 15  Fireplaces (count) | 0.613 | 0.645 | 0 | 3 |
-| 16  FireplaceQu (score) | 1.825 | 1.811 | 0 | 5 |
-| 17  GarageArea (sq ft) | 472.980 | 213.805 | 0 | 1,418 |
-| 18  GarageQual (score) | 2.810 | 0.723 | 0 | 5 |
-| 19  GarageCond (score) | 2.809 | 0.720 | 0 | 5 |
-| 20  PavedDrive (score) | 2.856 | 0.497 | 1 | 3 |
-| 21  PoolQC (score) | 0.018 | 0.269 | 0 | 5 |
-| 22  Age (years) | 36.548 | 30.250 | 0 | 136 |
-| 23  QualityAdjustedLivingArea | 9,673.956 | 5,186.745 | 334 | 56,420 |
-| 24  RenovationFreshness | 0.185 | 0.279 | 0.016 | 1 |
+| 1 | SalePrice (USD) | 180,921 | 79,443 | 34,900 | 755,000 |
+| 2 | log(SalePrice) | 12.024 | 0.400 | 10.460 | 13.535 |
+| 3 | LotArea (sq ft) | 10,517 | 9,981 | 1,300 | 215,245 |
+| 4 | OverallQual | 6.099 | 1.383 | 1 | 10 |
+| 5 | OverallCond | 5.575 | 1.113 | 1 | 9 |
+| 6 | YearBuilt | 1971.268 | 30.203 | 1872 | 2010 |
+| 7 | YearRemodAdd | 1984.866 | 20.645 | 1950 | 2010 |
+| 8 | ExterQual (score) | 3.396 | 0.574 | 2 | 5 |
+| 9 | ExterCond (score) | 3.084 | 0.351 | 1 | 5 |
+| 10 | BsmtQual (score) | 3.489 | 0.876 | 0 | 5 |
+| 11 | BsmtCond (score) | 2.935 | 0.552 | 0 | 4 |
+| 12 | BsmtExposure (score) | 1.631 | 1.067 | 0 | 4 |
+| 13 | HeatingQC (score) | 4.145 | 0.960 | 1 | 5 |
+| 14 | GrLivArea (sq ft) | 1,515 | 525 | 334 | 5,642 |
+| 15 | Fireplaces (count) | 0.613 | 0.645 | 0 | 3 |
+| 16 | FireplaceQu (score) | 1.825 | 1.811 | 0 | 5 |
+| 17 | GarageArea (sq ft) | 472.980 | 213.805 | 0 | 1,418 |
+| 18 | GarageQual (score) | 2.810 | 0.723 | 0 | 5 |
+| 19 | GarageCond (score) | 2.809 | 0.720 | 0 | 5 |
+| 20 | PavedDrive (score) | 2.856 | 0.497 | 1 | 3 |
+| 21 | PoolQC (score) | 0.018 | 0.269 | 0 | 5 |
+| 22 | Age (years) | 36.548 | 30.250 | 0 | 136 |
+| 23 | QualityAdjustedLivingArea | 9,673.956 | 5,186.745 | 334 | 56,420 |
+| 24 | RenovationFreshness | 0.185 | 0.279 | 0.016 | 1 |
 
 ## Proposed Regression Model
 
