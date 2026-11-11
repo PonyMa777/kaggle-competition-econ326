@@ -44,22 +44,23 @@ We use the Ames Housing dataset (De Cock, 2011), distributed through Kaggle's *H
 
 ## Summary Statistics (training data, N = 1,460)
 
+The table below reports the outcome and the numerical candidate features currently listed in the Variables section. Standard deviations are sample standard deviations. The summary-statistics presentation of qualitative features as category dummies is still being decided and is not yet included here; this section does not yet satisfy that part of the proposal requirement.
+
 | Variable | Mean | SD | Min | Max |
 |---|---:|---:|---:|---:|
 | SalePrice (USD) | 180,921 | 79,443 | 34,900 | 755,000 |
-| log(SalePrice) | 12.02 | 0.40 | 10.46 | 13.53 |
-| GrLivArea (sq ft) | 1,515 | 525 | 334 | 5,642 |
-| OverallQual | 6.10 | 1.38 | 1 | 10 |
-| Age (years) | 36.55 | 30.25 | 0 | 136 |
-| TotalBsmtSF (sq ft) | 1,057 | 439 | 0 | 6,110 |
-| GarageCars | 1.77 | 0.75 | 0 | 4 |
-| TotalBath | 2.21 | 0.79 | 1 | 6 |
+| log(SalePrice) | 12.024 | 0.400 | 10.460 | 13.535 |
 | LotArea (sq ft) | 10,517 | 9,981 | 1,300 | 215,245 |
-| YearsSinceRemod (years) | 22.95 | 20.64 | 0 | 60 |
-| KitchenQual = Ex | 0.07 | 0.25 | 0 | 1 |
-| KitchenQual = Gd | 0.40 | 0.49 | 0 | 1 |
-| KitchenQual = TA | 0.50 | 0.50 | 0 | 1 |
-| KitchenQual = Fa | 0.03 | 0.16 | 0 | 1 |
+| OverallQual | 6.099 | 1.383 | 1 | 10 |
+| OverallCond | 5.575 | 1.113 | 1 | 9 |
+| YearBuilt | 1971.268 | 30.203 | 1872 | 2010 |
+| YearRemodAdd | 1984.866 | 20.645 | 1950 | 2010 |
+| GrLivArea (sq ft) | 1,515 | 525 | 334 | 5,642 |
+| Fireplaces (count) | 0.613 | 0.645 | 0 | 3 |
+| GarageArea (sq ft) | 472.980 | 213.805 | 0 | 1,418 |
+| Age (years) | 36.548 | 30.250 | 0 | 136 |
+| QualityAdjustedLivingArea | 9,673.956 | 5,186.745 | 334 | 56,420 |
+| RenovationFreshness | 0.185 | 0.279 | 0.016 | 1 |
 
 ## Proposed Regression Model
 
