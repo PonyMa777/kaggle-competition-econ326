@@ -6,7 +6,7 @@ Advanced track (prediction-focused).
 
 ## Research Statement
 
-How accurately can a linear regression predict a house's sale price in Ames, Iowa, from its size, quality, and age, and how much does adding basement, garage, bathroom, lot, kitchen, and renovation information improve out-of-sample accuracy? We measure accuracy with the root-mean-squared error between the logs of predicted and actual sale prices (log RMSE), the metric used by the Kaggle competition; lower is better.
+Homebuyers and real estate professionals need reliable estimates of house prices when comparing properties with different features. This project asks: How accurately can a linear regression model predict sale prices in Ames, Iowa, using house size, quality, and age etc? Does adding renovation and other property features improve out-of-sample accuracy? We compare models using five-fold cross-validation and measure accuracy by log RMSE; lower values indicate better predictions.
 
 ## Data
 
