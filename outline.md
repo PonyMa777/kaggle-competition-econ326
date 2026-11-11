@@ -75,3 +75,9 @@ Model A keeps only β₁–β₃; Model B adds β₄–β₆; Model C adds the r
 
 - De Cock, D. (2011). Ames, Iowa: Alternative to the Boston Housing Data as an End of Semester Regression Project. *Journal of Statistics Education*, 19(3).
 - Kaggle. *House Prices: Advanced Regression Techniques*. https://www.kaggle.com/competitions/house-prices-advanced-regression-techniques
+
+## Notes on Missing Values and Categorical Features / 缺失值与定性变量说明
+
+1. **Unknown basement exposure / 地下室采光未知。** One training house has a basement, but its `BsmtExposure` value is missing. This is an unknown rating, not “no basement.” We will fit an imputation rule using only the training portion of each cross-validation fold and apply it to that fold's validation portion. For the final model, we will fit the rule on the full training set and apply it to the competition test set. / 训练集中有一套房屋存在地下室，但 `BsmtExposure` 未记录；这表示采光等级未知，不表示没有地下室。每折交叉验证只用训练部分确定填补规则，再用于该折的验证部分；最终用完整训练集确定规则，再用于竞赛测试集。
+
+2. **Categorical features / 定性特征。** For ordered quality and condition variables, we propose numeric scores (Po=1, Fa=2, TA=3, Gd=4, Ex=5; 0 only for a documented absence) to keep the initial model manageable. This assumes equal modeled differences between adjacent levels and that absence is below the lowest existing level. We will compare these scores with dummy encoding using cross-validation. Unordered categories such as `PavedDrive` will use dummies. The summary-statistics table will still show every qualitative variable as a full set of category dummies, as required; a regression with an intercept omits one reference dummy per variable. If we use feature scaling, we will fit its parameters on each fold's training portion only. / 对有顺序的质量和状况变量，我们拟采用数值编码（Po=1、Fa=2、TA=3、Gd=4、Ex=5；仅在确认设施不存在时记为0），使初始模型更简洁。这假设相邻等级在模型中的差距相等，且没有设施低于质量最差但仍存在的设施。我们会通过交叉验证与 dummy 编码比较。`PavedDrive` 等没有自然等级的类别仍使用 dummy。按照要求，描述性统计表仍将每个定性变量的所有类别分别列为 dummy；带截距的回归对每个变量省略一个基准 dummy。如使用特征缩放，也只用每折的训练部分计算缩放参数。
