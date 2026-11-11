@@ -75,14 +75,39 @@ The table uses the numeric scores defined above for ordered quality and conditio
 
 ## Proposed Regression Model
 
-Full specification (Model C):
+We use linear regression to predict **log sale price**. Let `y_i = log(SalePrice_i)` and let `x_i = (x_{i1}, ..., x_{ip})` contain the preprocessed features selected for a candidate model from the Variables table. The full candidate has up to 22 features (19 raw and three constructed); smaller candidates use subsets. We compare feature sets by five-fold cross-validation.
+
+**1. Prediction function (model).**
 
 $$
-\log(\text{SalePrice}_i) = \beta_0 + \beta_1 \log(\text{GrLivArea}_i) + \beta_2\,\text{OverallQual}_i + \beta_3\,\text{Age}_i + \beta_4\,\text{TotalBsmtSF}_i + \beta_5\,\text{GarageCars}_i + \beta_6\,\text{TotalBath}_i + \beta_7 \log(\text{LotArea}_i) + \beta_8\,\text{KitEx}_i + \beta_9\,\text{KitGd}_i + \beta_{10}\,\text{KitFa}_i + \beta_{11}\,\text{YearsSinceRemod}_i + u_i
+\hat y_i=f_{\mathbf w,b}(\mathbf x_i)=b+\sum_{j=1}^{p}w_jx_{ij}.
 $$
 
-Model A keeps only β₁–β₃; Model B adds β₄–β₆; Model C adds the rest. We estimate each model by OLS, which minimizes the mean squared error in log price, and compare the three models on log RMSE using the same five-fold cross-validation split of the training data. We choose the simplest model whose mean CV error is within one standard error of the best. The log–log form gives β₁ and β₇ an elasticity interpretation, and the other coefficients are approximate percentage effects. We then refit the chosen model on all 1,460 houses, predict the test set, and convert predictions back to dollars with exp(·).
+Here `b` is the intercept and each `w_j` is the coefficient of one feature. The one-feature case is `f_{w,b}(x)=wx+b`.
 
+**2. Cost function (training objective).** For the `m` labeled houses in the current training portion,
+
+$$
+J(\mathbf w,b)=\frac{1}{2m}\sum_{i=1}^{m}(\hat y_i-y_i)^2.
+$$
+
+We minimize squared errors in **log prices**, consistent with the log RMSE used for validation. The factor `1/2` simplifies the derivative without changing the minimizing coefficients.
+
+**3. Gradient-descent updates.** At each iteration, with learning rate `\alpha`,
+
+$$
+w_j^{\mathrm{new}}=w_j^{\mathrm{old}}-\alpha\frac{\partial J}{\partial w_j},\qquad
+b^{\mathrm{new}}=b^{\mathrm{old}}-\alpha\frac{\partial J}{\partial b},
+$$
+
+where
+
+$$
+\frac{\partial J}{\partial w_j}=\frac{1}{m}\sum_{i=1}^{m}(\hat y_i-y_i)x_{ij},\qquad
+\frac{\partial J}{\partial b}=\frac{1}{m}\sum_{i=1}^{m}(\hat y_i-y_i).
+$$
+
+If we scale features for gradient descent, we fit the scaling parameters on each cross-validation training fold and apply them to its validation fold. Gradient descent estimates the coefficients for a given feature set; cross-validation compares feature sets using log RMSE. After selecting a model, we fit it on all labeled houses and exponentiate predicted log prices to obtain dollar-price predictions for the competition test set.
 ## References
 
 - De Cock, D. (2011). Ames, Iowa: Alternative to the Boston Housing Data as an End of Semester Regression Project. *Journal of Statistics Education*, 19(3).
