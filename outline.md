@@ -40,11 +40,11 @@ We use the Ames Housing dataset (De Cock, 2011), distributed through Kaggle's *H
 | QualityAdjustedLivingArea | `GrLivArea × OverallQual`. | Allows the value of additional living area to vary with quality. |
 | RenovationFreshness | `1 / (1 + max(0, YrSold - YearRemodAdd))`. | Higher values indicate a more recent renovation at sale. |
 
-**Coding assumptions.** For the quality and condition fields with levels `Po/Fa/TA/Gd/Ex`, we propose scores `1/2/3/4/5`. This assumes that each one-level increase has the same modeled effect. Where `NA` specifically means that the facility does not exist, we assign 0, assuming absence is worth less than the lowest-quality existing facility, all else equal. A genuinely unknown value is not coded as 0. `BsmtExposure` uses its own ordered categories (`No=1, Mn=2, Av=3, Gd=4`, with 0 for no basement); `PavedDrive` remains categorical. We will compare the ordered-score approach with category dummies in validation. As required by the proposal instructions, qualitative variables will also be represented as dummies in the summary-statistics table.(Because there is a famous university-lowa State University in Ames, I may add "Neighborhood" as new variable. Dummy variable-whether this house in the area of Low State University)
+**Coding assumptions.** We encode ordered quality and condition levels as numeric scores: `Po=1`, `Fa=2`, `TA=3`, `Gd=4`, and `Ex=5`. Where `NA` documents the absence of a basement, fireplace, garage, or pool, we use 0; a genuinely unknown value is not coded as 0. This assumes equal modeled differences between adjacent levels and places absence below the lowest-quality existing facility. `BsmtExposure` uses `No=1`, `Mn=2`, `Av=3`, `Gd=4`, and 0 for no basement. `PavedDrive`, which has no clear quality scale, remains categorical. `Neighborhood` is only a possible future candidate; it is not yet part of the selected feature list.
 
 ## Summary Statistics (training data, N = 1,460)
 
-The table below reports the outcome and the numerical candidate features currently listed in the Variables section. Standard deviations are sample standard deviations. The summary-statistics presentation of qualitative features as category dummies is still being decided and is not yet included here; this section does not yet satisfy that part of the proposal requirement.
+The table uses the numeric scores defined above for ordered quality and condition fields. Standard deviations are sample standard deviations. The single unknown `BsmtExposure` in the training data is filled with the training mode (`No=1`) for this descriptive table; in cross-validation, imputation rules are fitted separately within each training fold. `PavedDrive` is shown by category indicators because its labels have no natural numeric order.
 
 | Variable | Mean | SD | Min | Max |
 |---|---:|---:|---:|---:|
@@ -55,9 +55,22 @@ The table below reports the outcome and the numerical candidate features current
 | OverallCond | 5.575 | 1.113 | 1 | 9 |
 | YearBuilt | 1971.268 | 30.203 | 1872 | 2010 |
 | YearRemodAdd | 1984.866 | 20.645 | 1950 | 2010 |
+| ExterQual (score) | 3.396 | 0.574 | 2 | 5 |
+| ExterCond (score) | 3.084 | 0.351 | 1 | 5 |
+| BsmtQual (score) | 3.489 | 0.876 | 0 | 5 |
+| BsmtCond (score) | 2.935 | 0.552 | 0 | 4 |
+| BsmtExposure (score) | 1.631 | 1.067 | 0 | 4 |
+| HeatingQC (score) | 4.145 | 0.960 | 1 | 5 |
 | GrLivArea (sq ft) | 1,515 | 525 | 334 | 5,642 |
 | Fireplaces (count) | 0.613 | 0.645 | 0 | 3 |
+| FireplaceQu (score) | 1.825 | 1.811 | 0 | 5 |
 | GarageArea (sq ft) | 472.980 | 213.805 | 0 | 1,418 |
+| GarageQual (score) | 2.810 | 0.723 | 0 | 5 |
+| GarageCond (score) | 2.809 | 0.720 | 0 | 5 |
+| PavedDrive = Y | 0.918 | 0.275 | 0 | 1 |
+| PavedDrive = P | 0.021 | 0.142 | 0 | 1 |
+| PavedDrive = N | 0.062 | 0.241 | 0 | 1 |
+| PoolQC (score) | 0.018 | 0.269 | 0 | 5 |
 | Age (years) | 36.548 | 30.250 | 0 | 136 |
 | QualityAdjustedLivingArea | 9,673.956 | 5,186.745 | 334 | 56,420 |
 | RenovationFreshness | 0.185 | 0.279 | 0.016 | 1 |
@@ -81,4 +94,4 @@ Model A keeps only β₁–β₃; Model B adds β₄–β₆; Model C adds the r
 
 1. **Unknown basement exposure / 地下室采光未知。** One training house has a basement, but its `BsmtExposure` value is missing. This is an unknown rating, not “no basement.” We will fit an imputation rule using only the training portion of each cross-validation fold and apply it to that fold's validation portion. For the final model, we will fit the rule on the full training set and apply it to the competition test set. / 训练集中有一套房屋存在地下室，但 `BsmtExposure` 未记录；这表示采光等级未知，不表示没有地下室。每折交叉验证只用训练部分确定填补规则，再用于该折的验证部分；最终用完整训练集确定规则，再用于竞赛测试集。
 
-2. **Categorical features / 定性特征。** For ordered quality and condition variables, we propose numeric scores (Po=1, Fa=2, TA=3, Gd=4, Ex=5; 0 only for a documented absence) to keep the initial model manageable. This assumes equal modeled differences between adjacent levels and that absence is below the lowest existing level. We will compare these scores with dummy encoding using cross-validation. Unordered categories such as `PavedDrive` will use dummies. The summary-statistics table will still show every qualitative variable as a full set of category dummies, as required; a regression with an intercept omits one reference dummy per variable. If we use feature scaling, we will fit its parameters on each fold's training portion only. / 对有顺序的质量和状况变量，我们拟采用数值编码（Po=1、Fa=2、TA=3、Gd=4、Ex=5；仅在确认设施不存在时记为0），使初始模型更简洁。这假设相邻等级在模型中的差距相等，且没有设施低于质量最差但仍存在的设施。我们会通过交叉验证与 dummy 编码比较。`PavedDrive` 等没有自然等级的类别仍使用 dummy。按照要求，描述性统计表仍将每个定性变量的所有类别分别列为 dummy；带截距的回归对每个变量省略一个基准 dummy。如使用特征缩放，也只用每折的训练部分计算缩放参数。
+2. **Categorical features / 定性特征。** For ordered quality and condition variables, we propose numeric scores (Po=1, Fa=2, TA=3, Gd=4, Ex=5; 0 only for a documented absence) to keep the initial model manageable. This assumes equal modeled differences between adjacent levels and that absence is below the lowest existing level. Unordered categories such as `PavedDrive` use dummies. The summary-statistics table reports the ordered fields as numeric scores and `PavedDrive` as category indicators. If we use feature scaling, we will fit its parameters on each fold's training portion only. / 对有顺序的质量和状况变量，我们拟采用数值编码（Po=1、Fa=2、TA=3、Gd=4、Ex=5；仅在确认设施不存在时记为0），使初始模型更简洁。这假设相邻等级在模型中的差距相等，且没有设施低于质量最差但仍存在的设施。`PavedDrive` 等没有自然等级的类别仍使用 dummy。描述性统计表将有序等级字段列为数值评分，将 `PavedDrive` 按类别列出。如使用特征缩放，也只用每折的训练部分计算缩放参数。
