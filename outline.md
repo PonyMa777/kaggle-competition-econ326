@@ -14,31 +14,31 @@ We use the Ames Housing dataset (De Cock, 2011), distributed through Kaggle's *H
 
 ## Variables
 
-| Variable | Construction | Reason for inclusion |
-|---|---|---|
-| log(SalePrice) | Log of sale price in USD; outcome, not a feature. | Prices are skewed, and the Kaggle evaluation metric uses log prices. |
-| LotArea | Lot size in square feet. | More land may increase value beyond the house itself. |
-| OverallQual | Overall material and finish rating, 1–10. | Captures broad construction quality. |
-| OverallCond | Overall condition rating, 1–10. | Captures current condition separately from quality. |
-| YearBuilt | Original construction year. | Captures differences between older and newer homes. |
-| YearRemodAdd | Most recent remodeling year. | Captures how recently the home was updated. |
-| ExterQual | Exterior quality rating. | Buyers may value better exterior materials. |
-| ExterCond | Exterior condition rating. | Captures exterior wear and maintenance needs. |
-| BsmtQual | Basement quality rating; 0 if no basement. | Distinguishes usable, high-quality basements. |
-| BsmtCond | Basement condition rating; 0 if no basement. | Captures basement wear or damage. |
-| BsmtExposure | Basement exposure rating; 0 if no basement. | Better exposure may improve light and usability. |
-| HeatingQC | Heating quality and condition rating. | Captures comfort and expected repair costs. |
-| GrLivArea | Above-ground living area in square feet. | Measures the main usable living space. |
-| Fireplaces | Number of fireplaces. | Measures the presence and extent of this amenity. |
-| FireplaceQu | Fireplace quality rating; 0 if no fireplace. | Distinguishes the value of existing fireplaces. |
-| GarageArea | Garage area in square feet; 0 if no garage. | Captures parking and storage space. |
-| GarageQual | Garage quality rating; 0 if no garage. | Captures quality beyond garage size. |
-| GarageCond | Garage condition rating; 0 if no garage. | Captures maintenance needs beyond garage quality. |
-| PavedDrive | Driveway surface category. | May affect convenience and reflect property upkeep. |
-| PoolQC | Pool quality rating; 0 if no pool. | Tests whether a rare amenity adds predictive information. |
-| Age | `max(0, YrSold - YearBuilt)`. | Measures the home's age at sale. |
-| QualityAdjustedLivingArea | `GrLivArea × OverallQual`. | Allows the value of additional living area to vary with quality. |
-| RenovationFreshness | `1 / (1 + max(0, YrSold - YearRemodAdd))`. | Higher values indicate a more recent renovation at sale. |
+| Variable | Construction | 中文释义与编码 | Reason for inclusion |
+|---|---|---|---|
+| log(SalePrice) | Log of sale price in USD; outcome, not a feature. | 成交价的自然对数；预测目标 | Prices are skewed, and the Kaggle evaluation metric uses log prices. |
+| LotArea | Lot size in square feet. | 土地面积，平方英尺 | More land may increase value beyond the house itself. |
+| OverallQual | Overall material and finish rating, 1–10. | 整体材料与装修质量，1–10 分 | Captures broad construction quality. |
+| OverallCond | Overall condition rating, 1–10. | 房屋整体当前状况，1–10 分 | Captures current condition separately from quality. |
+| YearBuilt | Original construction year. | 最初建造年份 | Captures differences between older and newer homes. |
+| YearRemodAdd | Most recent remodeling year. | 最近改造年份；未改造时等于建造年份 | Captures how recently the home was updated. |
+| ExterQual | Exterior quality rating. | 外部材料质量；Po=1、Fa=2、TA=3、Gd=4、Ex=5 | Buyers may value better exterior materials. |
+| ExterCond | Exterior condition rating. | 外部材料当前状况；Po=1、Fa=2、TA=3、Gd=4、Ex=5 | Captures exterior wear and maintenance needs. |
+| BsmtQual | Basement quality rating; 0 if no basement. | 地下室高度对应的质量；Po=1 至 Ex=5；无地下室=0 | Distinguishes usable, high-quality basements. |
+| BsmtCond | Basement condition rating; 0 if no basement. | 地下室当前状况；Po=1 至 Ex=5；无地下室=0 | Captures basement wear or damage. |
+| BsmtExposure | Basement exposure rating; 0 if no basement. | 地下室采光程度；No=1、Mn=2、Av=3、Gd=4；无地下室=0 | Better exposure may improve light and usability. |
+| HeatingQC | Heating quality and condition rating. | 供暖质量与状况；Po=1 至 Ex=5 | Captures comfort and expected repair costs. |
+| GrLivArea | Above-ground living area in square feet. | 地上居住面积，平方英尺 | Measures the main usable living space. |
+| Fireplaces | Number of fireplaces. | 壁炉数量 | Measures the presence and extent of this amenity. |
+| FireplaceQu | Fireplace quality rating; 0 if no fireplace. | 壁炉质量；Po=1 至 Ex=5；无壁炉=0 | Distinguishes the value of existing fireplaces. |
+| GarageArea | Garage area in square feet; 0 if no garage. | 车库面积，平方英尺；无车库=0 | Captures parking and storage space. |
+| GarageQual | Garage quality rating; 0 if no garage. | 车库质量；Po=1 至 Ex=5；无车库=0 | Captures quality beyond garage size. |
+| GarageCond | Garage condition rating; 0 if no garage. | 车库当前状况；Po=1 至 Ex=5；无车库=0 | Captures maintenance needs beyond garage quality. |
+| PavedDrive | Driveway surface category. | 车道铺装；N=1（泥土／碎石）、P=2（部分铺装）、Y=3（已铺装） | May affect convenience and reflect property upkeep. |
+| PoolQC | Pool quality rating; 0 if no pool. | 泳池质量；Fa=2、TA=3、Gd=4、Ex=5；无泳池=0 | Tests whether a rare amenity adds predictive information. |
+| Age | `max(0, YrSold - YearBuilt)`. | 出售时房龄＝出售年份－建造年份；负值截为0 | Measures the home's age at sale. |
+| QualityAdjustedLivingArea | `GrLivArea × OverallQual`. | 质量调整后的地上居住面积＝GrLivArea×OverallQual | Allows the value of additional living area to vary with quality. |
+| RenovationFreshness | `1 / (1 + max(0, YrSold - YearRemodAdd))`. | 改造新近程度＝1／(1＋距上次改造年数)；越大越新 | Higher values indicate a more recent renovation at sale. |
 
 **Coding assumptions.** We encode ordered quality and condition levels as numeric scores: `Po=1`, `Fa=2`, `TA=3`, `Gd=4`, and `Ex=5`. Where `NA` documents the absence of a basement, fireplace, garage, or pool, we use 0; a genuinely unknown value is not coded as 0. This assumes equal modeled differences between adjacent levels and places absence below the lowest-quality existing facility. `BsmtExposure` uses `No=1`, `Mn=2`, `Av=3`, `Gd=4`, and 0 for no basement. `PavedDrive` is scored as `N=1` (dirt/gravel), `P=2` (partial pavement), and `Y=3` (paved), assuming equal modeled differences between adjacent levels. `Neighborhood` is only a possible future candidate; it is not yet part of the selected feature list.
 
