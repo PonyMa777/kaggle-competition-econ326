@@ -2,7 +2,7 @@
 
 ## Track
 
-Prediction track.
+Advanced track (prediction-focused).
 
 ## Research Statement
 
