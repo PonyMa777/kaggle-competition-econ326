@@ -124,3 +124,13 @@ If we scale features for gradient descent, we fit the scaling parameters on each
 2. **Feature types.** After applying the proposed ordinal encodings, are all 22 current candidate features numeric inputs to the model? / 按目前的等级编码处理后，现有 22 个候选特征是否都能作为模型的数值输入？
 3. **Learning rate and scaling.** How should I choose the learning rate and decide which features to scale for gradient descent, without using validation data to fit the scaling rules? / 接下来怎样选择学习率、决定哪些特征需要缩放，并确保缩放规则只由训练数据确定？
 4. **Neighborhood comparison.** I still need a comparison between a model without `Neighborhood` and one with it. Should I represent its multiple categories with neighborhood dummies, or define a single near-campus indicator, and does adding location improve cross-validated log RMSE? / 我还需要比较“不加入 `Neighborhood`”与“加入社区位置”的模型。应该为多个社区分别建 dummy，还是定义一个“靠近大学”的 0/1 变量？加入位置后，交叉验证的 log RMSE 是否改善？
+## Next Steps / 后续待办
+
+- [ ] **1. 固定特征定义。** 列出当前 22 个候选特征的计算与编码规则，核对 `train.csv`、`test.csv` 的列名，并检查缺失值和异常年份。
+- [ ] **2. 建立预处理流程。** 在每一折训练集上确定未知值的填补规则和数值特征的 scaling 参数，再应用到该折验证集，避免使用验证集信息。
+- [ ] **3. 定义三个可比较的模型。** A：面积、整体质量、房龄等基础特征；B：在 A 的基础上加入其余候选特征；C：在 B 的基础上加入位置变量 `Neighborhood`。先决定 C 使用社区类别 dummies，还是明确界定的“靠近大学”指标。
+- [ ] **4. 实现并检查梯度下降。** 以 `log(SalePrice)` 为目标，写出预测函数、平方误差 cost 和每个权重及截距的更新；选择初始学习率，确认训练 cost 随迭代下降并趋于稳定。
+- [ ] **5. 用相同的五折划分比较 A、B、C。** 每折分别拟合预处理与模型，记录验证集 log RMSE 的均值和波动；据此选模型，而不是根据训练集误差选模型。
+- [ ] **6. 整理结果与解释。** 报告各模型的 log RMSE、加入特征后的变化，并说明数值等级编码、异常值处理及局限。
+- [ ] **7. 最终训练与预测。** 用全部 1,460 条带价格数据重新拟合选定流程；预测 1,459 条竞赛测试数据，将预测的 log 价格用 `exp` 转回美元，并检查输出格式。
+- [ ] **8. 完成提交文档。** 使 research statement、变量表、统计表、回归方程与实际使用的模型一致；核对篇幅、引用和课程提交要求。
