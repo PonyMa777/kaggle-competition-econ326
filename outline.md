@@ -6,17 +6,17 @@ Advanced track (prediction-focused).
 
 ## Research Statement
 
-Homebuyers and real estate professionals need reliable estimates of house prices when comparing properties with different features. This project asks: How accurately can a linear regression model predict sale prices in Ames, Iowa, using house size, quality, and age etc? Does adding renovation and other property features improve out-of-sample accuracy? We will use gradient descent to improve our model and measure accuracy by log RMSE; lower values indicate better predictions.
+Homebuyers and real estate professionals need reliable estimates of house prices when comparing properties with different features. This project asks: How accurately can a linear regression model predict sale prices in Ames, Iowa, using living area, overall quality, and age? How much does adding renovation, amenity, and neighborhood information improve out-of-sample prediction relative to this basic model? We will use gradient descent to estimate model coefficients and compare feature sets using the same five-fold cross-validation splits. Prediction accuracy will be measured by RMSE in US dollars; lower values indicate better predictions. This is a prediction study; associations between features and prices are not interpreted as causal effects.
 
 ## Data
 
-We use the Ames Housing dataset (De Cock, 2011), distributed through Kaggle's *House Prices: Advanced Regression Techniques* competition. It contains residential sales in Ames, Iowa, from 2006 to 2010 and 79 explanatory variables. The labeled training file has 1,460 houses; the competition test file has 1,459 houses without observed sale prices. We consider 19 selected raw features and three constructed features. Several selected categorical fields have missing entries, often because a house has no basement, fireplace, garage, or pool. We distinguish a documented absence from an unknown value; any remaining missing values are handled using rules fitted on the training portion of each cross-validation fold. A few records have a construction or remodeling year later than the sale year; we cap the corresponding negative age at zero when constructing age-based features and note this data anomaly. We compare candidate models using five-fold cross-validation on the labeled data, then predict the competition test set.
+We use the Ames Housing dataset (De Cock, 2011), distributed through Kaggle's *House Prices: Advanced Regression Techniques* competition. It contains residential sales in Ames, Iowa, from 2006 to 2010 and 79 explanatory variables. The labeled training file has 1,460 houses; the competition test file has 1,459 houses without observed sale prices. We consider 19 selected raw features and three constructed features. Several selected categorical fields have missing entries, often because a house has no basement, fireplace, garage, or pool. We distinguish a documented absence from an unknown value; any remaining missing values are handled using rules fitted on the training portion of each cross-validation fold. A few records have a construction or remodeling year later than the sale year; we cap the corresponding negative age at zero when constructing age-based features and note this data anomaly. We compare candidate models using five-fold cross-validation on the labeled data. The unlabeled competition test set can be used for a separate prediction exercise, but cannot directly provide the course project's prediction errors because its sale prices are unavailable.
 
 ## Variables
 
 | Variable | Construction | 中文释义与编码 | Reason for inclusion |
 |---|---|---|---|
-| log(SalePrice) | Log of sale price in USD; outcome, not a feature. | 成交价的自然对数；预测目标 | Prices are skewed, and the Kaggle evaluation metric uses log prices. |
+| SalePrice | Observed sale price in USD; outcome, not a feature. | 实际成交价（美元）；预测目标 | Directly measures the transaction price that the model aims to predict. |
 | LotArea | Lot size in square feet. | 土地面积，平方英尺 | More land may increase value beyond the house itself. |
 | OverallQual | Overall material and finish rating, 1–10. | 整体材料与装修质量，1–10 分 | Captures broad construction quality. |
 | OverallCond | Overall condition rating, 1–10. | 房屋整体当前状况，1–10 分 | Captures current condition separately from quality. |
@@ -49,33 +49,32 @@ The table uses the numeric scores defined above for ordered quality and conditio
 | No. | Variable | Mean | SD | Min | Max |
 |---:|---|---:|---:|---:|---:|
 | 1 | SalePrice (USD) | 180,921 | 79,443 | 34,900 | 755,000 |
-| 2 | log(SalePrice) | 12.024 | 0.400 | 10.460 | 13.535 |
-| 3 | LotArea (sq ft) | 10,517 | 9,981 | 1,300 | 215,245 |
-| 4 | OverallQual | 6.099 | 1.383 | 1 | 10 |
-| 5 | OverallCond | 5.575 | 1.113 | 1 | 9 |
-| 6 | YearBuilt | 1971.268 | 30.203 | 1872 | 2010 |
-| 7 | YearRemodAdd | 1984.866 | 20.645 | 1950 | 2010 |
-| 8 | ExterQual (score) | 3.396 | 0.574 | 2 | 5 |
-| 9 | ExterCond (score) | 3.084 | 0.351 | 1 | 5 |
-| 10 | BsmtQual (score) | 3.489 | 0.876 | 0 | 5 |
-| 11 | BsmtCond (score) | 2.935 | 0.552 | 0 | 4 |
-| 12 | BsmtExposure (score) | 1.631 | 1.067 | 0 | 4 |
-| 13 | HeatingQC (score) | 4.145 | 0.960 | 1 | 5 |
-| 14 | GrLivArea (sq ft) | 1,515 | 525 | 334 | 5,642 |
-| 15 | Fireplaces (count) | 0.613 | 0.645 | 0 | 3 |
-| 16 | FireplaceQu (score) | 1.825 | 1.811 | 0 | 5 |
-| 17 | GarageArea (sq ft) | 472.980 | 213.805 | 0 | 1,418 |
-| 18 | GarageQual (score) | 2.810 | 0.723 | 0 | 5 |
-| 19 | GarageCond (score) | 2.809 | 0.720 | 0 | 5 |
-| 20 | PavedDrive (score) | 2.856 | 0.497 | 1 | 3 |
-| 21 | PoolQC (score) | 0.018 | 0.269 | 0 | 5 |
-| 22 | Age (years) | 36.548 | 30.250 | 0 | 136 |
-| 23 | QualityAdjustedLivingArea | 9,673.956 | 5,186.745 | 334 | 56,420 |
-| 24 | RenovationFreshness | 0.185 | 0.279 | 0.016 | 1 |
+| 2 | LotArea (sq ft) | 10,517 | 9,981 | 1,300 | 215,245 |
+| 3 | OverallQual | 6.099 | 1.383 | 1 | 10 |
+| 4 | OverallCond | 5.575 | 1.113 | 1 | 9 |
+| 5 | YearBuilt | 1971.268 | 30.203 | 1872 | 2010 |
+| 6 | YearRemodAdd | 1984.866 | 20.645 | 1950 | 2010 |
+| 7 | ExterQual (score) | 3.396 | 0.574 | 2 | 5 |
+| 8 | ExterCond (score) | 3.084 | 0.351 | 1 | 5 |
+| 9 | BsmtQual (score) | 3.489 | 0.876 | 0 | 5 |
+| 10 | BsmtCond (score) | 2.935 | 0.552 | 0 | 4 |
+| 11 | BsmtExposure (score) | 1.631 | 1.067 | 0 | 4 |
+| 12 | HeatingQC (score) | 4.145 | 0.960 | 1 | 5 |
+| 13 | GrLivArea (sq ft) | 1,515 | 525 | 334 | 5,642 |
+| 14 | Fireplaces (count) | 0.613 | 0.645 | 0 | 3 |
+| 15 | FireplaceQu (score) | 1.825 | 1.811 | 0 | 5 |
+| 16 | GarageArea (sq ft) | 472.980 | 213.805 | 0 | 1,418 |
+| 17 | GarageQual (score) | 2.810 | 0.723 | 0 | 5 |
+| 18 | GarageCond (score) | 2.809 | 0.720 | 0 | 5 |
+| 19 | PavedDrive (score) | 2.856 | 0.497 | 1 | 3 |
+| 20 | PoolQC (score) | 0.018 | 0.269 | 0 | 5 |
+| 21 | Age (years) | 36.548 | 30.250 | 0 | 136 |
+| 22 | QualityAdjustedLivingArea | 9,673.956 | 5,186.745 | 334 | 56,420 |
+| 23 | RenovationFreshness | 0.185 | 0.279 | 0.016 | 1 |
 
 ## Proposed Regression Model
 
-We use linear regression to predict **log sale price**. Let `y_i = log(SalePrice_i)` and let `x_i = (x_{i1}, ..., x_{ip})` contain the preprocessed features selected for a candidate model from the Variables table. The full candidate has up to 22 features (19 raw and three constructed); smaller candidates use subsets. We compare feature sets by five-fold cross-validation.
+We use linear regression to predict **sale price in US dollars**. Let `y_i = SalePrice_i` be the observed sale price and `ŷ_i` its prediction, both in US dollars. Let `x_i = (x_{i1}, ..., x_{ip})` contain the preprocessed features selected for a candidate model from the Variables table. The full candidate has up to 22 features (19 raw and three constructed); smaller candidates use subsets. We compare feature sets by five-fold cross-validation.
 
 **1. Prediction function (model).** The full 22-feature candidate is:
 
@@ -93,6 +92,7 @@ $$
 $$
 
 Each `w_j` is the coefficient of the named feature; `b` is the intercept. The quality and condition terms use the numeric scores defined above. Smaller candidate models omit selected terms.
+
 **Vectorized form (equivalent to the expanded function).** For house `i`, put the same 22 features, in exactly the order above, into a column vector `x_i`, and put their 22 coefficients into a column vector `w`:
 
 $$
@@ -116,7 +116,7 @@ $$
 J(\mathbf w,b)=\frac{1}{m}\sum_{i=1}^{m}\frac{1}{2}\left(f_{\mathbf w,b}(\mathbf x_i)-y_i\right)^2.
 $$
 
-We minimize squared errors in **log prices**, consistent with the log RMSE used for validation. The factor `1/2` simplifies the derivative without changing the minimizing coefficients.
+We minimize squared errors in **sale prices measured in US dollars**. Validation RMSE is the square root of the mean squared prediction error on the held-out fold, so its unit is also US dollars. The factor `1/2` simplifies the derivative without changing the minimizing coefficients.
 
 **3. Gradient-descent updates.** At each iteration, with learning rate `\alpha`,
 
@@ -132,7 +132,8 @@ $$
 \frac{\partial J}{\partial b}=\frac{1}{m}\sum_{i=1}^{m}(\hat y_i-y_i).
 $$
 
-If we scale features for gradient descent, we fit the scaling parameters on each cross-validation training fold and apply them to its validation fold. Gradient descent estimates the coefficients for a given feature set; cross-validation compares feature sets using log RMSE. After selecting a model, we fit it on all labeled houses and exponentiate predicted log prices to obtain dollar-price predictions for the competition test set.
+If we scale features for gradient descent, we fit the scaling parameters on each cross-validation training fold and apply them to its validation fold. Gradient descent estimates the coefficients for a given feature set; cross-validation compares feature sets using RMSE in US dollars. After selecting a model, we fit it on all labeled houses; its predictions are already in US dollars. The unlabeled competition test set may be used for a separate prediction exercise; the course project evaluates accuracy using held-out folds of the labeled data.
+
 ## References
 
 - De Cock, D. (2011). Ames, Iowa: Alternative to the Boston Housing Data as an End of Semester Regression Project. *Journal of Statistics Education*, 19(3).
@@ -143,9 +144,9 @@ If we scale features for gradient descent, we fit the scaling parameters on each
 1. **Unknown basement exposure / 地下室采光未知。** One training house has a basement, but its `BsmtExposure` value is missing. This is an unknown rating, not “no basement.” We will fit an imputation rule using only the training portion of each cross-validation fold and apply it to that fold's validation portion. For the final model, we will fit the rule on the full training set and apply it to the competition test set. / 训练集中有一套房屋存在地下室，但 `BsmtExposure` 未记录；这表示采光等级未知，不表示没有地下室。每折交叉验证只用训练部分确定填补规则，再用于该折的验证部分；最终用完整训练集确定规则，再用于竞赛测试集。
 
 2. **Categorical features / 定性特征。** For ordered quality and condition variables, we propose numeric scores (Po=1, Fa=2, TA=3, Gd=4, Ex=5; 0 only for a documented absence) to keep the initial model manageable. This assumes equal modeled differences between adjacent levels and that absence is below the lowest existing level. `PavedDrive` is also scored numerically (`N=1`, `P=2`, `Y=3`), assuming equal modeled differences between adjacent paving levels. The summary-statistics table reports these proposed numeric scores. If we use feature scaling, we will fit its parameters on each fold's training portion only. / 对有顺序的质量和状况变量，我们拟采用数值编码（Po=1、Fa=2、TA=3、Gd=4、Ex=5；仅在确认设施不存在时记为0），使初始模型更简洁。这假设相邻等级在模型中的差距相等，且没有设施低于质量最差但仍存在的设施。`PavedDrive` 也按 `N=1`、`P=2`、`Y=3` 编码，假设相邻铺装等级在模型中的差距相等。描述性统计表报告这些拟采用的数值评分。如使用特征缩放，也只用每折的训练部分计算缩放参数。
+
 ## My Open Questions / 我的待解决问题
 
-1. **Gradient descent, log prices, and log RMSE.** If I use gradient descent to fit the regression, should the outcome still be `log(SalePrice)` and the validation metric still be log RMSE? Does the optimization method change either choice? / 如果我用梯度下降拟合回归，是否仍应预测 `log(SalePrice)`、并用 log RMSE 评估？优化方法会改变这两个选择吗？
-2. **Feature types.** After applying the proposed ordinal encodings, are all 22 current candidate features numeric inputs to the model? / 按目前的等级编码处理后，现有 22 个候选特征是否都能作为模型的数值输入？
-3. **Learning rate and scaling.** How should I choose the learning rate and decide which features to scale for gradient descent, without using validation data to fit the scaling rules? / 接下来怎样选择学习率、决定哪些特征需要缩放，并确保缩放规则只由训练数据确定？
-4. **Neighborhood comparison.** I still need a comparison between a model without `Neighborhood` and one with it. Should I represent its multiple categories with neighborhood dummies, or define a single near-campus indicator, and does adding location improve cross-validated log RMSE? / 我还需要比较“不加入 `Neighborhood`”与“加入社区位置”的模型。应该为多个社区分别建 dummy，还是定义一个“靠近大学”的 0/1 变量？加入位置后，交叉验证的 log RMSE 是否改善？
+1. **Feature types.** After applying the proposed ordinal encodings, are all 22 current candidate features numeric inputs to the model? / 按目前的等级编码处理后，现有 22 个候选特征是否都能作为模型的数值输入？
+2. **Learning rate and scaling.** How should I choose the learning rate and decide which features to scale for gradient descent, without using validation data to fit the scaling rules? / 接下来怎样选择学习率、决定哪些特征需要缩放，并确保缩放规则只由训练数据确定？
+3. **Neighborhood comparison.** I still need a comparison between a model without `Neighborhood` and one with it. Should I represent its multiple categories with neighborhood dummies, or define a single near-campus indicator, and does adding location improve cross-validated RMSE in US dollars? / 我还需要比较“不加入 `Neighborhood`”与“加入社区位置”的模型。应该为多个社区分别建 dummy，还是定义一个“靠近大学”的 0/1 变量？加入位置后，交叉验证的美元 RMSE 是否改善？
