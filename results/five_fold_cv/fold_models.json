@@ -1,0 +1,1992 @@
+[
+  {
+    "fold": 1,
+    "training_preprocessing": {
+      "categorical_rules": {
+        "ExterCond": {
+          "mapping": {
+            "Po": 1,
+            "Fa": 2,
+            "TA": 3,
+            "Gd": 4,
+            "Ex": 5
+          },
+          "absence_area_field": null,
+          "absence_score": null,
+          "confirmed_absence_count": 0,
+          "unknown_count": 0,
+          "unknown_house_ids": [],
+          "training_mode": "TA"
+        },
+        "BsmtCond": {
+          "mapping": {
+            "Po": 1,
+            "Fa": 2,
+            "TA": 3,
+            "Gd": 4,
+            "Ex": 5
+          },
+          "absence_area_field": "TotalBsmtSF",
+          "absence_score": 0,
+          "confirmed_absence_count": 33,
+          "unknown_count": 0,
+          "unknown_house_ids": [],
+          "training_mode": "TA"
+        },
+        "BsmtExposure": {
+          "mapping": {
+            "No": 1,
+            "Mn": 2,
+            "Av": 3,
+            "Gd": 4
+          },
+          "absence_area_field": "TotalBsmtSF",
+          "absence_score": 0,
+          "confirmed_absence_count": 33,
+          "unknown_count": 1,
+          "unknown_house_ids": [
+            949
+          ],
+          "training_mode": "No"
+        },
+        "HeatingQC": {
+          "mapping": {
+            "Po": 1,
+            "Fa": 2,
+            "TA": 3,
+            "Gd": 4,
+            "Ex": 5
+          },
+          "absence_area_field": null,
+          "absence_score": null,
+          "confirmed_absence_count": 0,
+          "unknown_count": 0,
+          "unknown_house_ids": [],
+          "training_mode": "Ex"
+        },
+        "GarageQual": {
+          "mapping": {
+            "Po": 1,
+            "Fa": 2,
+            "TA": 3,
+            "Gd": 4,
+            "Ex": 5
+          },
+          "absence_area_field": "GarageArea",
+          "absence_score": 0,
+          "confirmed_absence_count": 70,
+          "unknown_count": 0,
+          "unknown_house_ids": [],
+          "training_mode": "TA"
+        },
+        "PavedDrive": {
+          "mapping": {
+            "N": 1,
+            "P": 2,
+            "Y": 3
+          },
+          "absence_area_field": null,
+          "absence_score": null,
+          "confirmed_absence_count": 0,
+          "unknown_count": 0,
+          "unknown_house_ids": [],
+          "training_mode": "Y"
+        },
+        "PoolQC": {
+          "mapping": {
+            "Po": 1,
+            "Fa": 2,
+            "TA": 3,
+            "Gd": 4,
+            "Ex": 5
+          },
+          "absence_area_field": "PoolArea",
+          "absence_score": 0,
+          "confirmed_absence_count": 1163,
+          "unknown_count": 0,
+          "unknown_house_ids": [],
+          "training_mode": "Ex"
+        }
+      },
+      "negative_age_count": 0,
+      "negative_remodel_age_count": 1,
+      "negative_remodel_age_house_ids": [
+        524
+      ],
+      "constructed_features": {
+        "Age": "max(0, YrSold - YearBuilt)",
+        "QualityAdjustedLivingArea": "GrLivArea * OverallQual",
+        "RenovationFreshness": "1 / (1 + max(0, YrSold - YearRemodAdd))"
+      }
+    },
+    "validation_preprocessing_audit": {
+      "categorical_rules": {
+        "ExterCond": {
+          "mapping": {
+            "Po": 1,
+            "Fa": 2,
+            "TA": 3,
+            "Gd": 4,
+            "Ex": 5
+          },
+          "absence_area_field": null,
+          "absence_score": null,
+          "confirmed_absence_count": 0,
+          "unknown_count": 0,
+          "unknown_house_ids": [],
+          "training_mode": "TA"
+        },
+        "BsmtCond": {
+          "mapping": {
+            "Po": 1,
+            "Fa": 2,
+            "TA": 3,
+            "Gd": 4,
+            "Ex": 5
+          },
+          "absence_area_field": "TotalBsmtSF",
+          "absence_score": 0,
+          "confirmed_absence_count": 4,
+          "unknown_count": 0,
+          "unknown_house_ids": [],
+          "training_mode": "TA"
+        },
+        "BsmtExposure": {
+          "mapping": {
+            "No": 1,
+            "Mn": 2,
+            "Av": 3,
+            "Gd": 4
+          },
+          "absence_area_field": "TotalBsmtSF",
+          "absence_score": 0,
+          "confirmed_absence_count": 4,
+          "unknown_count": 0,
+          "unknown_house_ids": [],
+          "training_mode": "No"
+        },
+        "HeatingQC": {
+          "mapping": {
+            "Po": 1,
+            "Fa": 2,
+            "TA": 3,
+            "Gd": 4,
+            "Ex": 5
+          },
+          "absence_area_field": null,
+          "absence_score": null,
+          "confirmed_absence_count": 0,
+          "unknown_count": 0,
+          "unknown_house_ids": [],
+          "training_mode": "Ex"
+        },
+        "GarageQual": {
+          "mapping": {
+            "Po": 1,
+            "Fa": 2,
+            "TA": 3,
+            "Gd": 4,
+            "Ex": 5
+          },
+          "absence_area_field": "GarageArea",
+          "absence_score": 0,
+          "confirmed_absence_count": 11,
+          "unknown_count": 0,
+          "unknown_house_ids": [],
+          "training_mode": "TA"
+        },
+        "PavedDrive": {
+          "mapping": {
+            "N": 1,
+            "P": 2,
+            "Y": 3
+          },
+          "absence_area_field": null,
+          "absence_score": null,
+          "confirmed_absence_count": 0,
+          "unknown_count": 0,
+          "unknown_house_ids": [],
+          "training_mode": "Y"
+        },
+        "PoolQC": {
+          "mapping": {
+            "Po": 1,
+            "Fa": 2,
+            "TA": 3,
+            "Gd": 4,
+            "Ex": 5
+          },
+          "absence_area_field": "PoolArea",
+          "absence_score": 0,
+          "confirmed_absence_count": 290,
+          "unknown_count": 0,
+          "unknown_house_ids": [],
+          "training_mode": "Ex"
+        }
+      },
+      "negative_age_count": 0,
+      "negative_remodel_age_count": 0,
+      "negative_remodel_age_house_ids": [],
+      "constructed_features": {
+        "Age": "max(0, YrSold - YearBuilt)",
+        "QualityAdjustedLivingArea": "GrLivArea * OverallQual",
+        "RenovationFreshness": "1 / (1 + max(0, YrSold - YearRemodAdd))"
+      }
+    },
+    "models": {
+      "A_basic": {
+        "feature_order": [
+          "GrLivArea",
+          "OverallQual",
+          "Age"
+        ],
+        "means": [
+          1507.838184931507,
+          6.084760273972603,
+          36.0111301369863
+        ],
+        "standard_deviations_ddof0": [
+          535.72350772282,
+          1.3955067121398315,
+          29.903424107956678
+        ],
+        "standardized_intercept": 180803.88184931508,
+        "standardized_weights": [
+          34313.68828870931,
+          34066.82407430438,
+          -15210.572698988306
+        ],
+        "raw_intercept": -45997.46026012598,
+        "raw_weights": [
+          64.05111553638037,
+          24411.795212412308,
+          -508.6565553187299
+        ],
+        "optimization": {
+          "converged": true,
+          "iterations": 180,
+          "learning_rate": 0.5048092773583164,
+          "gradient_l2_tolerance": 1e-08,
+          "gradient_l2_norm": 9.028143288448508e-09,
+          "smallest_hessian_eigenvalue": 0.2570141633386782,
+          "largest_hessian_eigenvalue": 1.9809461609601016,
+          "hessian_condition_number": 7.707536951376982,
+          "initialization": "all weights and intercept = 0",
+          "history_sampling": "iterations 0-10, every 500, and final iteration"
+        },
+        "max_validation_prediction_difference_vs_lstsq_usd": 7.788185030221939e-08,
+        "direct_gradient_l2_norm": 9.028143288448508e-09
+      },
+      "B_full": {
+        "feature_order": [
+          "LotArea",
+          "OverallQual",
+          "OverallCond",
+          "YearBuilt",
+          "YearRemodAdd",
+          "ExterCond",
+          "BsmtCond",
+          "BsmtExposure",
+          "HeatingQC",
+          "GrLivArea",
+          "Fireplaces",
+          "GarageArea",
+          "GarageQual",
+          "PavedDrive",
+          "PoolQC",
+          "Age",
+          "QualityAdjustedLivingArea",
+          "RenovationFreshness"
+        ],
+        "means": [
+          10570.5,
+          6.084760273972603,
+          5.564212328767123,
+          1971.7765410958905,
+          1984.910102739726,
+          3.077054794520548,
+          2.9246575342465753,
+          1.6224315068493151,
+          4.1438356164383565,
+          1507.838184931507,
+          0.6113013698630136,
+          470.5470890410959,
+          2.797945205479452,
+          2.8570205479452055,
+          0.017123287671232876,
+          36.0111301369863,
+          9629.964897260274,
+          0.18932788788452623
+        ],
+        "standard_deviations_ddof0": [
+          10857.616561138022,
+          1.3955067121398315,
+          1.099962668786861,
+          29.860587559621887,
+          20.77829727529851,
+          0.34505442852019175,
+          0.5729115310789574,
+          1.0624717137735773,
+          0.958842953040008,
+          535.72350772282,
+          0.6460700624657993,
+          216.5148714602397,
+          0.7450263558896177,
+          0.49407658395299275,
+          0.2708079208694413,
+          29.903424107956678,
+          5306.468621160751,
+          0.28146106165731544
+        ],
+        "standardized_intercept": 180803.88184931505,
+        "standardized_weights": [
+          5046.711772068241,
+          1989.095369538293,
+          5153.797182899082,
+          17444.032877561356,
+          1510.8478607914967,
+          -154.8632200169129,
+          208.6425022938977,
+          8215.386781096615,
+          2939.746982885149,
+          -11948.415104586433,
+          6936.591810057912,
+          11040.354075234272,
+          -2592.832913275236,
+          968.1927393123128,
+          -5784.351821224836,
+          6941.148862475036,
+          59538.11579887654,
+          3844.383362182364
+        ],
+        "raw_intercept": -1291407.693204527,
+        "raw_weights": [
+          0.46480843596297333,
+          1425.3570779951815,
+          4685.429177867608,
+          584.182506212622,
+          72.71278492042805,
+          -448.8080929175806,
+          364.17926848315267,
+          7732.334587918631,
+          3065.9316768869107,
+          -22.303324256527617,
+          10736.593773721113,
+          50.99120444140807,
+          -3480.189516489249,
+          1959.6005371596973,
+          -21359.61091039697,
+          232.11886496396716,
+          11.21991291184777,
+          13658.6685900552
+        ],
+        "optimization": {
+          "converged": true,
+          "iterations": 129888,
+          "learning_rate": 0.1750459012413968,
+          "gradient_l2_tolerance": 1e-08,
+          "gradient_l2_norm": 9.99996023430043e-09,
+          "smallest_hessian_eigenvalue": 0.0009312422326787713,
+          "largest_hessian_eigenvalue": 5.712787291265686,
+          "hessian_condition_number": 6134.587855656555,
+          "initialization": "all weights and intercept = 0",
+          "history_sampling": "iterations 0-10, every 500, and final iteration"
+        },
+        "max_validation_prediction_difference_vs_lstsq_usd": 7.490743882954121e-07,
+        "direct_gradient_l2_norm": 9.99996023430043e-09
+      }
+    }
+  },
+  {
+    "fold": 2,
+    "training_preprocessing": {
+      "categorical_rules": {
+        "ExterCond": {
+          "mapping": {
+            "Po": 1,
+            "Fa": 2,
+            "TA": 3,
+            "Gd": 4,
+            "Ex": 5
+          },
+          "absence_area_field": null,
+          "absence_score": null,
+          "confirmed_absence_count": 0,
+          "unknown_count": 0,
+          "unknown_house_ids": [],
+          "training_mode": "TA"
+        },
+        "BsmtCond": {
+          "mapping": {
+            "Po": 1,
+            "Fa": 2,
+            "TA": 3,
+            "Gd": 4,
+            "Ex": 5
+          },
+          "absence_area_field": "TotalBsmtSF",
+          "absence_score": 0,
+          "confirmed_absence_count": 24,
+          "unknown_count": 0,
+          "unknown_house_ids": [],
+          "training_mode": "TA"
+        },
+        "BsmtExposure": {
+          "mapping": {
+            "No": 1,
+            "Mn": 2,
+            "Av": 3,
+            "Gd": 4
+          },
+          "absence_area_field": "TotalBsmtSF",
+          "absence_score": 0,
+          "confirmed_absence_count": 24,
+          "unknown_count": 1,
+          "unknown_house_ids": [
+            949
+          ],
+          "training_mode": "No"
+        },
+        "HeatingQC": {
+          "mapping": {
+            "Po": 1,
+            "Fa": 2,
+            "TA": 3,
+            "Gd": 4,
+            "Ex": 5
+          },
+          "absence_area_field": null,
+          "absence_score": null,
+          "confirmed_absence_count": 0,
+          "unknown_count": 0,
+          "unknown_house_ids": [],
+          "training_mode": "Ex"
+        },
+        "GarageQual": {
+          "mapping": {
+            "Po": 1,
+            "Fa": 2,
+            "TA": 3,
+            "Gd": 4,
+            "Ex": 5
+          },
+          "absence_area_field": "GarageArea",
+          "absence_score": 0,
+          "confirmed_absence_count": 64,
+          "unknown_count": 0,
+          "unknown_house_ids": [],
+          "training_mode": "TA"
+        },
+        "PavedDrive": {
+          "mapping": {
+            "N": 1,
+            "P": 2,
+            "Y": 3
+          },
+          "absence_area_field": null,
+          "absence_score": null,
+          "confirmed_absence_count": 0,
+          "unknown_count": 0,
+          "unknown_house_ids": [],
+          "training_mode": "Y"
+        },
+        "PoolQC": {
+          "mapping": {
+            "Po": 1,
+            "Fa": 2,
+            "TA": 3,
+            "Gd": 4,
+            "Ex": 5
+          },
+          "absence_area_field": "PoolArea",
+          "absence_score": 0,
+          "confirmed_absence_count": 1162,
+          "unknown_count": 0,
+          "unknown_house_ids": [],
+          "training_mode": "Gd"
+        }
+      },
+      "negative_age_count": 0,
+      "negative_remodel_age_count": 1,
+      "negative_remodel_age_house_ids": [
+        524
+      ],
+      "constructed_features": {
+        "Age": "max(0, YrSold - YearBuilt)",
+        "QualityAdjustedLivingArea": "GrLivArea * OverallQual",
+        "RenovationFreshness": "1 / (1 + max(0, YrSold - YearRemodAdd))"
+      }
+    },
+    "validation_preprocessing_audit": {
+      "categorical_rules": {
+        "ExterCond": {
+          "mapping": {
+            "Po": 1,
+            "Fa": 2,
+            "TA": 3,
+            "Gd": 4,
+            "Ex": 5
+          },
+          "absence_area_field": null,
+          "absence_score": null,
+          "confirmed_absence_count": 0,
+          "unknown_count": 0,
+          "unknown_house_ids": [],
+          "training_mode": "TA"
+        },
+        "BsmtCond": {
+          "mapping": {
+            "Po": 1,
+            "Fa": 2,
+            "TA": 3,
+            "Gd": 4,
+            "Ex": 5
+          },
+          "absence_area_field": "TotalBsmtSF",
+          "absence_score": 0,
+          "confirmed_absence_count": 13,
+          "unknown_count": 0,
+          "unknown_house_ids": [],
+          "training_mode": "TA"
+        },
+        "BsmtExposure": {
+          "mapping": {
+            "No": 1,
+            "Mn": 2,
+            "Av": 3,
+            "Gd": 4
+          },
+          "absence_area_field": "TotalBsmtSF",
+          "absence_score": 0,
+          "confirmed_absence_count": 13,
+          "unknown_count": 0,
+          "unknown_house_ids": [],
+          "training_mode": "No"
+        },
+        "HeatingQC": {
+          "mapping": {
+            "Po": 1,
+            "Fa": 2,
+            "TA": 3,
+            "Gd": 4,
+            "Ex": 5
+          },
+          "absence_area_field": null,
+          "absence_score": null,
+          "confirmed_absence_count": 0,
+          "unknown_count": 0,
+          "unknown_house_ids": [],
+          "training_mode": "Ex"
+        },
+        "GarageQual": {
+          "mapping": {
+            "Po": 1,
+            "Fa": 2,
+            "TA": 3,
+            "Gd": 4,
+            "Ex": 5
+          },
+          "absence_area_field": "GarageArea",
+          "absence_score": 0,
+          "confirmed_absence_count": 17,
+          "unknown_count": 0,
+          "unknown_house_ids": [],
+          "training_mode": "TA"
+        },
+        "PavedDrive": {
+          "mapping": {
+            "N": 1,
+            "P": 2,
+            "Y": 3
+          },
+          "absence_area_field": null,
+          "absence_score": null,
+          "confirmed_absence_count": 0,
+          "unknown_count": 0,
+          "unknown_house_ids": [],
+          "training_mode": "Y"
+        },
+        "PoolQC": {
+          "mapping": {
+            "Po": 1,
+            "Fa": 2,
+            "TA": 3,
+            "Gd": 4,
+            "Ex": 5
+          },
+          "absence_area_field": "PoolArea",
+          "absence_score": 0,
+          "confirmed_absence_count": 291,
+          "unknown_count": 0,
+          "unknown_house_ids": [],
+          "training_mode": "Gd"
+        }
+      },
+      "negative_age_count": 0,
+      "negative_remodel_age_count": 0,
+      "negative_remodel_age_house_ids": [],
+      "constructed_features": {
+        "Age": "max(0, YrSold - YearBuilt)",
+        "QualityAdjustedLivingArea": "GrLivArea * OverallQual",
+        "RenovationFreshness": "1 / (1 + max(0, YrSold - YearRemodAdd))"
+      }
+    },
+    "models": {
+      "A_basic": {
+        "feature_order": [
+          "GrLivArea",
+          "OverallQual",
+          "Age"
+        ],
+        "means": [
+          1524.2071917808219,
+          6.103595890410959,
+          36.59760273972603
+        ],
+        "standard_deviations_ddof0": [
+          533.3674761417427,
+          1.3694517255004872,
+          30.198783106318345
+        ],
+        "standardized_intercept": 181365.4469178082,
+        "standardized_weights": [
+          32833.05595715683,
+          34262.662713066784,
+          -14674.998350848664
+        ],
+        "raw_intercept": -47384.700995792315,
+        "raw_weights": [
+          61.558039111540104,
+          25019.25557145504,
+          -485.94667868515154
+        ],
+        "optimization": {
+          "converged": true,
+          "iterations": 162,
+          "learning_rate": 0.5144059408325473,
+          "gradient_l2_tolerance": 1e-08,
+          "gradient_l2_norm": 9.875807770380034e-09,
+          "smallest_hessian_eigenvalue": 0.28054239109771356,
+          "largest_hessian_eigenvalue": 1.9439899904373896,
+          "hessian_condition_number": 6.929398380155295,
+          "initialization": "all weights and intercept = 0",
+          "history_sampling": "iterations 0-10, every 500, and final iteration"
+        },
+        "max_validation_prediction_difference_vs_lstsq_usd": 5.3958501666784286e-08,
+        "direct_gradient_l2_norm": 9.875807770380034e-09
+      },
+      "B_full": {
+        "feature_order": [
+          "LotArea",
+          "OverallQual",
+          "OverallCond",
+          "YearBuilt",
+          "YearRemodAdd",
+          "ExterCond",
+          "BsmtCond",
+          "BsmtExposure",
+          "HeatingQC",
+          "GrLivArea",
+          "Fireplaces",
+          "GarageArea",
+          "GarageQual",
+          "PavedDrive",
+          "PoolQC",
+          "Age",
+          "QualityAdjustedLivingArea",
+          "RenovationFreshness"
+        ],
+        "means": [
+          10646.05051369863,
+          6.103595890410959,
+          5.578767123287672,
+          1971.2174657534247,
+          1984.777397260274,
+          3.085616438356164,
+          2.9486301369863015,
+          1.6352739726027397,
+          4.149828767123288,
+          1524.2071917808219,
+          0.6181506849315068,
+          470.9015410958904,
+          2.8107876712328768,
+          2.856164383561644,
+          0.01797945205479452,
+          36.59760273972603,
+          9741.636130136987,
+          0.17979862856056242
+        ],
+        "standard_deviations_ddof0": [
+          10781.066643786067,
+          1.3694517255004872,
+          1.0951142371203926,
+          30.156509038899227,
+          20.566883110889187,
+          0.3479863259058489,
+          0.5159425875156168,
+          1.0609130825730397,
+          0.9547914342976004,
+          533.3674761417427,
+          0.6488234910201163,
+          212.37867140115122,
+          0.7210058110542721,
+          0.49642179959690624,
+          0.26272809970062677,
+          30.198783106318345,
+          5267.488542610898,
+          0.27332891056985986
+        ],
+        "standardized_intercept": 181365.4469178082,
+        "standardized_weights": [
+          4795.727392020456,
+          5153.914237380331,
+          5592.250687561794,
+          62552.57815893581,
+          292.6553964031902,
+          -848.610022272865,
+          870.1389260302167,
+          7504.409815195162,
+          3017.2508376888536,
+          -6354.124427014079,
+          7112.357887921593,
+          11012.841315864387,
+          -2147.1617504406986,
+          796.8784880892491,
+          -3236.9070882201127,
+          51441.092455485086,
+          49877.34886777177,
+          4908.765507211794
+        ],
+        "raw_intercept": -4180869.1671002475,
+        "raw_weights": [
+          0.44482865661391596,
+          3763.4873441754607,
+          5106.545507313137,
+          2074.2645668385726,
+          14.229448129077133,
+          -2438.6303687762284,
+          1686.5033960854778,
+          7073.538764358213,
+          3160.115109231701,
+          -11.913220642882743,
+          10961.930303631809,
+          51.85474248994991,
+          -2978.00893906953,
+          1605.2447510087454,
+          -12320.368822019804,
+          1703.4160705873712,
+          9.468905051106088,
+          17959.18879191218
+        ],
+        "optimization": {
+          "converged": true,
+          "iterations": 140157,
+          "learning_rate": 0.18200105915054657,
+          "gradient_l2_tolerance": 1e-08,
+          "gradient_l2_norm": 9.9986513442207e-09,
+          "smallest_hessian_eigenvalue": 0.0008893701269768368,
+          "largest_hessian_eigenvalue": 5.494473519370159,
+          "hessian_condition_number": 6177.938017827373,
+          "initialization": "all weights and intercept = 0",
+          "history_sampling": "iterations 0-10, every 500, and final iteration"
+        },
+        "max_validation_prediction_difference_vs_lstsq_usd": 7.202033884823322e-07,
+        "direct_gradient_l2_norm": 9.9986513442207e-09
+      }
+    }
+  },
+  {
+    "fold": 3,
+    "training_preprocessing": {
+      "categorical_rules": {
+        "ExterCond": {
+          "mapping": {
+            "Po": 1,
+            "Fa": 2,
+            "TA": 3,
+            "Gd": 4,
+            "Ex": 5
+          },
+          "absence_area_field": null,
+          "absence_score": null,
+          "confirmed_absence_count": 0,
+          "unknown_count": 0,
+          "unknown_house_ids": [],
+          "training_mode": "TA"
+        },
+        "BsmtCond": {
+          "mapping": {
+            "Po": 1,
+            "Fa": 2,
+            "TA": 3,
+            "Gd": 4,
+            "Ex": 5
+          },
+          "absence_area_field": "TotalBsmtSF",
+          "absence_score": 0,
+          "confirmed_absence_count": 30,
+          "unknown_count": 0,
+          "unknown_house_ids": [],
+          "training_mode": "TA"
+        },
+        "BsmtExposure": {
+          "mapping": {
+            "No": 1,
+            "Mn": 2,
+            "Av": 3,
+            "Gd": 4
+          },
+          "absence_area_field": "TotalBsmtSF",
+          "absence_score": 0,
+          "confirmed_absence_count": 30,
+          "unknown_count": 1,
+          "unknown_house_ids": [
+            949
+          ],
+          "training_mode": "No"
+        },
+        "HeatingQC": {
+          "mapping": {
+            "Po": 1,
+            "Fa": 2,
+            "TA": 3,
+            "Gd": 4,
+            "Ex": 5
+          },
+          "absence_area_field": null,
+          "absence_score": null,
+          "confirmed_absence_count": 0,
+          "unknown_count": 0,
+          "unknown_house_ids": [],
+          "training_mode": "Ex"
+        },
+        "GarageQual": {
+          "mapping": {
+            "Po": 1,
+            "Fa": 2,
+            "TA": 3,
+            "Gd": 4,
+            "Ex": 5
+          },
+          "absence_area_field": "GarageArea",
+          "absence_score": 0,
+          "confirmed_absence_count": 64,
+          "unknown_count": 0,
+          "unknown_house_ids": [],
+          "training_mode": "TA"
+        },
+        "PavedDrive": {
+          "mapping": {
+            "N": 1,
+            "P": 2,
+            "Y": 3
+          },
+          "absence_area_field": null,
+          "absence_score": null,
+          "confirmed_absence_count": 0,
+          "unknown_count": 0,
+          "unknown_house_ids": [],
+          "training_mode": "Y"
+        },
+        "PoolQC": {
+          "mapping": {
+            "Po": 1,
+            "Fa": 2,
+            "TA": 3,
+            "Gd": 4,
+            "Ex": 5
+          },
+          "absence_area_field": "PoolArea",
+          "absence_score": 0,
+          "confirmed_absence_count": 1164,
+          "unknown_count": 0,
+          "unknown_house_ids": [],
+          "training_mode": "Ex"
+        }
+      },
+      "negative_age_count": 0,
+      "negative_remodel_age_count": 1,
+      "negative_remodel_age_house_ids": [
+        524
+      ],
+      "constructed_features": {
+        "Age": "max(0, YrSold - YearBuilt)",
+        "QualityAdjustedLivingArea": "GrLivArea * OverallQual",
+        "RenovationFreshness": "1 / (1 + max(0, YrSold - YearRemodAdd))"
+      }
+    },
+    "validation_preprocessing_audit": {
+      "categorical_rules": {
+        "ExterCond": {
+          "mapping": {
+            "Po": 1,
+            "Fa": 2,
+            "TA": 3,
+            "Gd": 4,
+            "Ex": 5
+          },
+          "absence_area_field": null,
+          "absence_score": null,
+          "confirmed_absence_count": 0,
+          "unknown_count": 0,
+          "unknown_house_ids": [],
+          "training_mode": "TA"
+        },
+        "BsmtCond": {
+          "mapping": {
+            "Po": 1,
+            "Fa": 2,
+            "TA": 3,
+            "Gd": 4,
+            "Ex": 5
+          },
+          "absence_area_field": "TotalBsmtSF",
+          "absence_score": 0,
+          "confirmed_absence_count": 7,
+          "unknown_count": 0,
+          "unknown_house_ids": [],
+          "training_mode": "TA"
+        },
+        "BsmtExposure": {
+          "mapping": {
+            "No": 1,
+            "Mn": 2,
+            "Av": 3,
+            "Gd": 4
+          },
+          "absence_area_field": "TotalBsmtSF",
+          "absence_score": 0,
+          "confirmed_absence_count": 7,
+          "unknown_count": 0,
+          "unknown_house_ids": [],
+          "training_mode": "No"
+        },
+        "HeatingQC": {
+          "mapping": {
+            "Po": 1,
+            "Fa": 2,
+            "TA": 3,
+            "Gd": 4,
+            "Ex": 5
+          },
+          "absence_area_field": null,
+          "absence_score": null,
+          "confirmed_absence_count": 0,
+          "unknown_count": 0,
+          "unknown_house_ids": [],
+          "training_mode": "Ex"
+        },
+        "GarageQual": {
+          "mapping": {
+            "Po": 1,
+            "Fa": 2,
+            "TA": 3,
+            "Gd": 4,
+            "Ex": 5
+          },
+          "absence_area_field": "GarageArea",
+          "absence_score": 0,
+          "confirmed_absence_count": 17,
+          "unknown_count": 0,
+          "unknown_house_ids": [],
+          "training_mode": "TA"
+        },
+        "PavedDrive": {
+          "mapping": {
+            "N": 1,
+            "P": 2,
+            "Y": 3
+          },
+          "absence_area_field": null,
+          "absence_score": null,
+          "confirmed_absence_count": 0,
+          "unknown_count": 0,
+          "unknown_house_ids": [],
+          "training_mode": "Y"
+        },
+        "PoolQC": {
+          "mapping": {
+            "Po": 1,
+            "Fa": 2,
+            "TA": 3,
+            "Gd": 4,
+            "Ex": 5
+          },
+          "absence_area_field": "PoolArea",
+          "absence_score": 0,
+          "confirmed_absence_count": 289,
+          "unknown_count": 0,
+          "unknown_house_ids": [],
+          "training_mode": "Ex"
+        }
+      },
+      "negative_age_count": 0,
+      "negative_remodel_age_count": 0,
+      "negative_remodel_age_house_ids": [],
+      "constructed_features": {
+        "Age": "max(0, YrSold - YearBuilt)",
+        "QualityAdjustedLivingArea": "GrLivArea * OverallQual",
+        "RenovationFreshness": "1 / (1 + max(0, YrSold - YearRemodAdd))"
+      }
+    },
+    "models": {
+      "A_basic": {
+        "feature_order": [
+          "GrLivArea",
+          "OverallQual",
+          "Age"
+        ],
+        "means": [
+          1517.660102739726,
+          6.109589041095891,
+          36.45205479452055
+        ],
+        "standard_deviations_ddof0": [
+          515.1948877000996,
+          1.3971511507213865,
+          30.385104090200844
+        ],
+        "standardized_intercept": 181786.67465753425,
+        "standardized_weights": [
+          33672.3320700851,
+          35385.06819462239,
+          -15172.732366617527
+        ],
+        "raw_intercept": -53937.99535282623,
+        "raw_weights": [
+          65.35843595110774,
+          25326.58558549813,
+          -499.3477172754104
+        ],
+        "optimization": {
+          "converged": true,
+          "iterations": 171,
+          "learning_rate": 0.5211443877210763,
+          "gradient_l2_tolerance": 1e-08,
+          "gradient_l2_norm": 9.391486360868878e-09,
+          "smallest_hessian_eigenvalue": 0.26232403801772886,
+          "largest_hessian_eigenvalue": 1.9188540135161425,
+          "hessian_condition_number": 7.31482340702021,
+          "initialization": "all weights and intercept = 0",
+          "history_sampling": "iterations 0-10, every 500, and final iteration"
+        },
+        "max_validation_prediction_difference_vs_lstsq_usd": 8.614733815193176e-08,
+        "direct_gradient_l2_norm": 9.391486360868878e-09
+      },
+      "B_full": {
+        "feature_order": [
+          "LotArea",
+          "OverallQual",
+          "OverallCond",
+          "YearBuilt",
+          "YearRemodAdd",
+          "ExterCond",
+          "BsmtCond",
+          "BsmtExposure",
+          "HeatingQC",
+          "GrLivArea",
+          "Fireplaces",
+          "GarageArea",
+          "GarageQual",
+          "PavedDrive",
+          "PoolQC",
+          "Age",
+          "QualityAdjustedLivingArea",
+          "RenovationFreshness"
+        ],
+        "means": [
+          10650.44691780822,
+          6.109589041095891,
+          5.582191780821918,
+          1971.3878424657535,
+          1985.2183219178082,
+          3.0804794520547945,
+          2.9340753424657535,
+          1.6292808219178083,
+          4.153253424657534,
+          1517.660102739726,
+          0.610445205479452,
+          473.79794520547944,
+          2.8090753424657535,
+          2.857876712328767,
+          0.0136986301369863,
+          36.45205479452055,
+          9701.577054794521,
+          0.19325715541754446
+        ],
+        "standard_deviations_ddof0": [
+          10807.759841269875,
+          1.3971511507213865,
+          1.128745511164293,
+          30.32954428117821,
+          20.630791588487384,
+          0.3492101306251103,
+          0.5535716852963752,
+          1.0664877205694174,
+          0.9578298624312066,
+          515.1948877000996,
+          0.639558232922484,
+          210.49172354444087,
+          0.7205542728184585,
+          0.49518878218880275,
+          0.24442556000076002,
+          30.385104090200844,
+          5101.375783331511,
+          0.2877002996210901
+        ],
+        "standardized_intercept": 181786.6746575343,
+        "standardized_weights": [
+          6451.332310499807,
+          -7024.803349838867,
+          6210.157938036445,
+          71289.09219859746,
+          -16.169704040160685,
+          -1444.978298908288,
+          775.26682881689,
+          7365.728402825106,
+          2724.833710573594,
+          -24673.515948443594,
+          8135.2937445632015,
+          10780.109638533582,
+          -2086.129649196107,
+          742.430253209841,
+          1866.4440056270355,
+          58932.15200605839,
+          77425.80060214525,
+          6380.160030108476
+        ],
+        "raw_intercept": -4648986.58585368,
+        "raw_weights": [
+          0.5969166973774833,
+          -5027.948011359954,
+          5501.822932284099,
+          2350.4834605390943,
+          -0.7837655656985977,
+          -4137.847594288507,
+          1400.4813638577305,
+          6906.529030538119,
+          2844.7992878999403,
+          -47.891616430026204,
+          12720.17671852755,
+          51.21393590687945,
+          -2895.173518347453,
+          1499.2873019622878,
+          7636.042669274162,
+          1939.507984936077,
+          15.177435243082886,
+          22176.41079453632
+        ],
+        "optimization": {
+          "converged": true,
+          "iterations": 137632,
+          "learning_rate": 0.1823415199607893,
+          "gradient_l2_tolerance": 1e-08,
+          "gradient_l2_norm": 9.998806431996068e-09,
+          "smallest_hessian_eigenvalue": 0.0009104706534803872,
+          "largest_hessian_eigenvalue": 5.48421445765638,
+          "hessian_condition_number": 6023.49393326659,
+          "initialization": "all weights and intercept = 0",
+          "history_sampling": "iterations 0-10, every 500, and final iteration"
+        },
+        "max_validation_prediction_difference_vs_lstsq_usd": 7.357157301157713e-07,
+        "direct_gradient_l2_norm": 9.998806431996068e-09
+      }
+    }
+  },
+  {
+    "fold": 4,
+    "training_preprocessing": {
+      "categorical_rules": {
+        "ExterCond": {
+          "mapping": {
+            "Po": 1,
+            "Fa": 2,
+            "TA": 3,
+            "Gd": 4,
+            "Ex": 5
+          },
+          "absence_area_field": null,
+          "absence_score": null,
+          "confirmed_absence_count": 0,
+          "unknown_count": 0,
+          "unknown_house_ids": [],
+          "training_mode": "TA"
+        },
+        "BsmtCond": {
+          "mapping": {
+            "Po": 1,
+            "Fa": 2,
+            "TA": 3,
+            "Gd": 4,
+            "Ex": 5
+          },
+          "absence_area_field": "TotalBsmtSF",
+          "absence_score": 0,
+          "confirmed_absence_count": 34,
+          "unknown_count": 0,
+          "unknown_house_ids": [],
+          "training_mode": "TA"
+        },
+        "BsmtExposure": {
+          "mapping": {
+            "No": 1,
+            "Mn": 2,
+            "Av": 3,
+            "Gd": 4
+          },
+          "absence_area_field": "TotalBsmtSF",
+          "absence_score": 0,
+          "confirmed_absence_count": 34,
+          "unknown_count": 1,
+          "unknown_house_ids": [
+            949
+          ],
+          "training_mode": "No"
+        },
+        "HeatingQC": {
+          "mapping": {
+            "Po": 1,
+            "Fa": 2,
+            "TA": 3,
+            "Gd": 4,
+            "Ex": 5
+          },
+          "absence_area_field": null,
+          "absence_score": null,
+          "confirmed_absence_count": 0,
+          "unknown_count": 0,
+          "unknown_house_ids": [],
+          "training_mode": "Ex"
+        },
+        "GarageQual": {
+          "mapping": {
+            "Po": 1,
+            "Fa": 2,
+            "TA": 3,
+            "Gd": 4,
+            "Ex": 5
+          },
+          "absence_area_field": "GarageArea",
+          "absence_score": 0,
+          "confirmed_absence_count": 57,
+          "unknown_count": 0,
+          "unknown_house_ids": [],
+          "training_mode": "TA"
+        },
+        "PavedDrive": {
+          "mapping": {
+            "N": 1,
+            "P": 2,
+            "Y": 3
+          },
+          "absence_area_field": null,
+          "absence_score": null,
+          "confirmed_absence_count": 0,
+          "unknown_count": 0,
+          "unknown_house_ids": [],
+          "training_mode": "Y"
+        },
+        "PoolQC": {
+          "mapping": {
+            "Po": 1,
+            "Fa": 2,
+            "TA": 3,
+            "Gd": 4,
+            "Ex": 5
+          },
+          "absence_area_field": "PoolArea",
+          "absence_score": 0,
+          "confirmed_absence_count": 1161,
+          "unknown_count": 0,
+          "unknown_house_ids": [],
+          "training_mode": "Gd"
+        }
+      },
+      "negative_age_count": 0,
+      "negative_remodel_age_count": 1,
+      "negative_remodel_age_house_ids": [
+        524
+      ],
+      "constructed_features": {
+        "Age": "max(0, YrSold - YearBuilt)",
+        "QualityAdjustedLivingArea": "GrLivArea * OverallQual",
+        "RenovationFreshness": "1 / (1 + max(0, YrSold - YearRemodAdd))"
+      }
+    },
+    "validation_preprocessing_audit": {
+      "categorical_rules": {
+        "ExterCond": {
+          "mapping": {
+            "Po": 1,
+            "Fa": 2,
+            "TA": 3,
+            "Gd": 4,
+            "Ex": 5
+          },
+          "absence_area_field": null,
+          "absence_score": null,
+          "confirmed_absence_count": 0,
+          "unknown_count": 0,
+          "unknown_house_ids": [],
+          "training_mode": "TA"
+        },
+        "BsmtCond": {
+          "mapping": {
+            "Po": 1,
+            "Fa": 2,
+            "TA": 3,
+            "Gd": 4,
+            "Ex": 5
+          },
+          "absence_area_field": "TotalBsmtSF",
+          "absence_score": 0,
+          "confirmed_absence_count": 3,
+          "unknown_count": 0,
+          "unknown_house_ids": [],
+          "training_mode": "TA"
+        },
+        "BsmtExposure": {
+          "mapping": {
+            "No": 1,
+            "Mn": 2,
+            "Av": 3,
+            "Gd": 4
+          },
+          "absence_area_field": "TotalBsmtSF",
+          "absence_score": 0,
+          "confirmed_absence_count": 3,
+          "unknown_count": 0,
+          "unknown_house_ids": [],
+          "training_mode": "No"
+        },
+        "HeatingQC": {
+          "mapping": {
+            "Po": 1,
+            "Fa": 2,
+            "TA": 3,
+            "Gd": 4,
+            "Ex": 5
+          },
+          "absence_area_field": null,
+          "absence_score": null,
+          "confirmed_absence_count": 0,
+          "unknown_count": 0,
+          "unknown_house_ids": [],
+          "training_mode": "Ex"
+        },
+        "GarageQual": {
+          "mapping": {
+            "Po": 1,
+            "Fa": 2,
+            "TA": 3,
+            "Gd": 4,
+            "Ex": 5
+          },
+          "absence_area_field": "GarageArea",
+          "absence_score": 0,
+          "confirmed_absence_count": 24,
+          "unknown_count": 0,
+          "unknown_house_ids": [],
+          "training_mode": "TA"
+        },
+        "PavedDrive": {
+          "mapping": {
+            "N": 1,
+            "P": 2,
+            "Y": 3
+          },
+          "absence_area_field": null,
+          "absence_score": null,
+          "confirmed_absence_count": 0,
+          "unknown_count": 0,
+          "unknown_house_ids": [],
+          "training_mode": "Y"
+        },
+        "PoolQC": {
+          "mapping": {
+            "Po": 1,
+            "Fa": 2,
+            "TA": 3,
+            "Gd": 4,
+            "Ex": 5
+          },
+          "absence_area_field": "PoolArea",
+          "absence_score": 0,
+          "confirmed_absence_count": 292,
+          "unknown_count": 0,
+          "unknown_house_ids": [],
+          "training_mode": "Gd"
+        }
+      },
+      "negative_age_count": 0,
+      "negative_remodel_age_count": 0,
+      "negative_remodel_age_house_ids": [],
+      "constructed_features": {
+        "Age": "max(0, YrSold - YearBuilt)",
+        "QualityAdjustedLivingArea": "GrLivArea * OverallQual",
+        "RenovationFreshness": "1 / (1 + max(0, YrSold - YearRemodAdd))"
+      }
+    },
+    "models": {
+      "A_basic": {
+        "feature_order": [
+          "GrLivArea",
+          "OverallQual",
+          "Age"
+        ],
+        "means": [
+          1511.2080479452054,
+          6.0770547945205475,
+          37.336472602739725
+        ],
+        "standard_deviations_ddof0": [
+          526.6674973621367,
+          1.372137452582059,
+          30.1462582906624
+        ],
+        "standardized_intercept": 179588.24743150684,
+        "standardized_weights": [
+          32125.300751354014,
+          33826.24897477872,
+          -15669.74216532562
+        ],
+        "raw_intercept": -42997.18718879577,
+        "raw_weights": [
+          60.99731028069243,
+          24652.230657449953,
+          -519.7906159445074
+        ],
+        "optimization": {
+          "converged": true,
+          "iterations": 158,
+          "learning_rate": 0.5248669195001304,
+          "gradient_l2_tolerance": 1e-08,
+          "gradient_l2_norm": 9.532742224399412e-09,
+          "smallest_hessian_eigenvalue": 0.279158181814933,
+          "largest_hessian_eigenvalue": 1.9052448589299056,
+          "hessian_condition_number": 6.824965138198891,
+          "initialization": "all weights and intercept = 0",
+          "history_sampling": "iterations 0-10, every 500, and final iteration"
+        },
+        "max_validation_prediction_difference_vs_lstsq_usd": 4.920730134472251e-08,
+        "direct_gradient_l2_norm": 9.532742224399412e-09
+      },
+      "B_full": {
+        "feature_order": [
+          "LotArea",
+          "OverallQual",
+          "OverallCond",
+          "YearBuilt",
+          "YearRemodAdd",
+          "ExterCond",
+          "BsmtCond",
+          "BsmtExposure",
+          "HeatingQC",
+          "GrLivArea",
+          "Fireplaces",
+          "GarageArea",
+          "GarageQual",
+          "PavedDrive",
+          "PoolQC",
+          "Age",
+          "QualityAdjustedLivingArea",
+          "RenovationFreshness"
+        ],
+        "means": [
+          10622.626712328767,
+          6.0770547945205475,
+          5.593321917808219,
+          1970.474315068493,
+          1984.3578767123288,
+          3.089041095890411,
+          2.925513698630137,
+          1.6292808219178083,
+          4.1284246575342465,
+          1511.2080479452054,
+          0.6087328767123288,
+          473.3304794520548,
+          2.829623287671233,
+          2.850171232876712,
+          0.02226027397260274,
+          37.336472602739725,
+          9602.582191780823,
+          0.17664887168816762
+        ],
+        "standard_deviations_ddof0": [
+          10844.644727457231,
+          1.372137452582059,
+          1.1225536228149426,
+          30.089296745528266,
+          20.64350887095864,
+          0.3568552309345827,
+          0.5797080126661472,
+          1.0744856191669505,
+          0.9672444891844872,
+          526.6674973621367,
+          0.6478302330371206,
+          213.38433722364175,
+          0.6843999435603101,
+          0.505771455501247,
+          0.30042953393466315,
+          30.1462582906624,
+          5188.889812842421,
+          0.2708274684201439
+        ],
+        "standardized_intercept": 179588.24743150675,
+        "standardized_weights": [
+          5222.338463358797,
+          5877.320605272252,
+          5737.507885429228,
+          16374.854936119933,
+          656.6274751329197,
+          -520.4423363526461,
+          -115.26896242829004,
+          7766.6562045995,
+          3397.489816088071,
+          -6955.109919410327,
+          7819.307206776954,
+          10385.031052219976,
+          -1988.262218839476,
+          249.29870673210928,
+          -3652.892033808525,
+          4757.721966643195,
+          48374.52609184767,
+          4702.618370301074
+        ],
+        "raw_intercept": -1138626.598776542,
+        "raw_weights": [
+          0.48155920222416454,
+          4283.332252328245,
+          5111.121436712942,
+          544.2086292214021,
+          31.807939204398796,
+          -1458.4130796951986,
+          -198.83969155118996,
+          7228.255144653303,
+          3512.5450225646637,
+          -13.205884081029575,
+          12069.99427939466,
+          48.66819742882878,
+          -2905.1174500341963,
+          492.90782233853173,
+          -12158.897915152873,
+          157.8213097217729,
+          9.322712147812712,
+          17363.889998800794
+        ],
+        "optimization": {
+          "converged": true,
+          "iterations": 126037,
+          "learning_rate": 0.18227593881624518,
+          "gradient_l2_tolerance": 1e-08,
+          "gradient_l2_norm": 9.998399362673431e-09,
+          "smallest_hessian_eigenvalue": 0.0009152564654045266,
+          "largest_hessian_eigenvalue": 5.486187625719012,
+          "hessian_condition_number": 5994.153369126125,
+          "initialization": "all weights and intercept = 0",
+          "history_sampling": "iterations 0-10, every 500, and final iteration"
+        },
+        "max_validation_prediction_difference_vs_lstsq_usd": 7.570197340101004e-07,
+        "direct_gradient_l2_norm": 9.998399362673431e-09
+      }
+    }
+  },
+  {
+    "fold": 5,
+    "training_preprocessing": {
+      "categorical_rules": {
+        "ExterCond": {
+          "mapping": {
+            "Po": 1,
+            "Fa": 2,
+            "TA": 3,
+            "Gd": 4,
+            "Ex": 5
+          },
+          "absence_area_field": null,
+          "absence_score": null,
+          "confirmed_absence_count": 0,
+          "unknown_count": 0,
+          "unknown_house_ids": [],
+          "training_mode": "TA"
+        },
+        "BsmtCond": {
+          "mapping": {
+            "Po": 1,
+            "Fa": 2,
+            "TA": 3,
+            "Gd": 4,
+            "Ex": 5
+          },
+          "absence_area_field": "TotalBsmtSF",
+          "absence_score": 0,
+          "confirmed_absence_count": 27,
+          "unknown_count": 0,
+          "unknown_house_ids": [],
+          "training_mode": "TA"
+        },
+        "BsmtExposure": {
+          "mapping": {
+            "No": 1,
+            "Mn": 2,
+            "Av": 3,
+            "Gd": 4
+          },
+          "absence_area_field": "TotalBsmtSF",
+          "absence_score": 0,
+          "confirmed_absence_count": 27,
+          "unknown_count": 0,
+          "unknown_house_ids": [],
+          "training_mode": "No"
+        },
+        "HeatingQC": {
+          "mapping": {
+            "Po": 1,
+            "Fa": 2,
+            "TA": 3,
+            "Gd": 4,
+            "Ex": 5
+          },
+          "absence_area_field": null,
+          "absence_score": null,
+          "confirmed_absence_count": 0,
+          "unknown_count": 0,
+          "unknown_house_ids": [],
+          "training_mode": "Ex"
+        },
+        "GarageQual": {
+          "mapping": {
+            "Po": 1,
+            "Fa": 2,
+            "TA": 3,
+            "Gd": 4,
+            "Ex": 5
+          },
+          "absence_area_field": "GarageArea",
+          "absence_score": 0,
+          "confirmed_absence_count": 69,
+          "unknown_count": 0,
+          "unknown_house_ids": [],
+          "training_mode": "TA"
+        },
+        "PavedDrive": {
+          "mapping": {
+            "N": 1,
+            "P": 2,
+            "Y": 3
+          },
+          "absence_area_field": null,
+          "absence_score": null,
+          "confirmed_absence_count": 0,
+          "unknown_count": 0,
+          "unknown_house_ids": [],
+          "training_mode": "Y"
+        },
+        "PoolQC": {
+          "mapping": {
+            "Po": 1,
+            "Fa": 2,
+            "TA": 3,
+            "Gd": 4,
+            "Ex": 5
+          },
+          "absence_area_field": "PoolArea",
+          "absence_score": 0,
+          "confirmed_absence_count": 1162,
+          "unknown_count": 0,
+          "unknown_house_ids": [],
+          "training_mode": "Gd"
+        }
+      },
+      "negative_age_count": 0,
+      "negative_remodel_age_count": 0,
+      "negative_remodel_age_house_ids": [],
+      "constructed_features": {
+        "Age": "max(0, YrSold - YearBuilt)",
+        "QualityAdjustedLivingArea": "GrLivArea * OverallQual",
+        "RenovationFreshness": "1 / (1 + max(0, YrSold - YearRemodAdd))"
+      }
+    },
+    "validation_preprocessing_audit": {
+      "categorical_rules": {
+        "ExterCond": {
+          "mapping": {
+            "Po": 1,
+            "Fa": 2,
+            "TA": 3,
+            "Gd": 4,
+            "Ex": 5
+          },
+          "absence_area_field": null,
+          "absence_score": null,
+          "confirmed_absence_count": 0,
+          "unknown_count": 0,
+          "unknown_house_ids": [],
+          "training_mode": "TA"
+        },
+        "BsmtCond": {
+          "mapping": {
+            "Po": 1,
+            "Fa": 2,
+            "TA": 3,
+            "Gd": 4,
+            "Ex": 5
+          },
+          "absence_area_field": "TotalBsmtSF",
+          "absence_score": 0,
+          "confirmed_absence_count": 10,
+          "unknown_count": 0,
+          "unknown_house_ids": [],
+          "training_mode": "TA"
+        },
+        "BsmtExposure": {
+          "mapping": {
+            "No": 1,
+            "Mn": 2,
+            "Av": 3,
+            "Gd": 4
+          },
+          "absence_area_field": "TotalBsmtSF",
+          "absence_score": 0,
+          "confirmed_absence_count": 10,
+          "unknown_count": 1,
+          "unknown_house_ids": [
+            949
+          ],
+          "training_mode": "No"
+        },
+        "HeatingQC": {
+          "mapping": {
+            "Po": 1,
+            "Fa": 2,
+            "TA": 3,
+            "Gd": 4,
+            "Ex": 5
+          },
+          "absence_area_field": null,
+          "absence_score": null,
+          "confirmed_absence_count": 0,
+          "unknown_count": 0,
+          "unknown_house_ids": [],
+          "training_mode": "Ex"
+        },
+        "GarageQual": {
+          "mapping": {
+            "Po": 1,
+            "Fa": 2,
+            "TA": 3,
+            "Gd": 4,
+            "Ex": 5
+          },
+          "absence_area_field": "GarageArea",
+          "absence_score": 0,
+          "confirmed_absence_count": 12,
+          "unknown_count": 0,
+          "unknown_house_ids": [],
+          "training_mode": "TA"
+        },
+        "PavedDrive": {
+          "mapping": {
+            "N": 1,
+            "P": 2,
+            "Y": 3
+          },
+          "absence_area_field": null,
+          "absence_score": null,
+          "confirmed_absence_count": 0,
+          "unknown_count": 0,
+          "unknown_house_ids": [],
+          "training_mode": "Y"
+        },
+        "PoolQC": {
+          "mapping": {
+            "Po": 1,
+            "Fa": 2,
+            "TA": 3,
+            "Gd": 4,
+            "Ex": 5
+          },
+          "absence_area_field": "PoolArea",
+          "absence_score": 0,
+          "confirmed_absence_count": 291,
+          "unknown_count": 0,
+          "unknown_house_ids": [],
+          "training_mode": "Gd"
+        }
+      },
+      "negative_age_count": 0,
+      "negative_remodel_age_count": 1,
+      "negative_remodel_age_house_ids": [
+        524
+      ],
+      "constructed_features": {
+        "Age": "max(0, YrSold - YearBuilt)",
+        "QualityAdjustedLivingArea": "GrLivArea * OverallQual",
+        "RenovationFreshness": "1 / (1 + max(0, YrSold - YearRemodAdd))"
+      }
+    },
+    "models": {
+      "A_basic": {
+        "feature_order": [
+          "GrLivArea",
+          "OverallQual",
+          "Age"
+        ],
+        "means": [
+          1516.4049657534247,
+          6.1215753424657535,
+          36.342465753424655
+        ],
+        "standard_deviations_ddof0": [
+          515.0331378579242,
+          1.377639527953901,
+          30.545511374880217
+        ],
+        "standardized_intercept": 181061.72859589042,
+        "standardized_weights": [
+          30077.67200986963,
+          36603.046483476064,
+          -14627.459492001517
+        ],
+        "raw_intercept": -52738.61761881935,
+        "raw_weights": [
+          58.39948888525069,
+          26569.393328775684,
+          -478.87427100109824
+        ],
+        "optimization": {
+          "converged": true,
+          "iterations": 170,
+          "learning_rate": 0.5252996012994132,
+          "gradient_l2_tolerance": 1e-08,
+          "gradient_l2_norm": 9.893829401482082e-09,
+          "smallest_hessian_eigenvalue": 0.268117945412749,
+          "largest_hessian_eigenvalue": 1.903675535877695,
+          "hessian_condition_number": 7.100142189091887,
+          "initialization": "all weights and intercept = 0",
+          "history_sampling": "iterations 0-10, every 500, and final iteration"
+        },
+        "max_validation_prediction_difference_vs_lstsq_usd": 6.399932317435741e-08,
+        "direct_gradient_l2_norm": 9.893829401482082e-09
+      },
+      "B_full": {
+        "feature_order": [
+          "LotArea",
+          "OverallQual",
+          "OverallCond",
+          "YearBuilt",
+          "YearRemodAdd",
+          "ExterCond",
+          "BsmtCond",
+          "BsmtExposure",
+          "HeatingQC",
+          "GrLivArea",
+          "Fireplaces",
+          "GarageArea",
+          "GarageQual",
+          "PavedDrive",
+          "PoolQC",
+          "Age",
+          "QualityAdjustedLivingArea",
+          "RenovationFreshness"
+        ],
+        "means": [
+          10094.516267123288,
+          6.1215753424657535,
+          5.558219178082192,
+          1971.4828767123288,
+          1985.0650684931506,
+          3.085616438356164,
+          2.941780821917808,
+          1.6378424657534247,
+          4.1506849315068495,
+          1516.4049657534247,
+          0.6164383561643836,
+          476.3236301369863,
+          2.8039383561643834,
+          2.8595890410958904,
+          0.01797945205479452,
+          36.342465753424655,
+          9694.020547945205,
+          0.18635179564009316
+        ],
+        "standard_deviations_ddof0": [
+          5387.6584318384585,
+          1.377639527953901,
+          1.1149824526732193,
+          30.507124385950714,
+          20.560990436626216,
+          0.3552906828483144,
+          0.5347841517353237,
+          1.067020946940761,
+          0.9568961363702634,
+          515.0331378579242,
+          0.6398338180287035,
+          215.77942438879995,
+          0.7402921278496765,
+          0.4904678737923292,
+          0.2627280997006268,
+          30.545511374880217,
+          5055.002286788879,
+          0.2804197641879029
+        ],
+        "standardized_intercept": 181061.7285958904,
+        "standardized_weights": [
+          4772.071848345029,
+          4439.715834519659,
+          5809.9434264916135,
+          24406.63971027773,
+          711.4057599567674,
+          -1127.305405424094,
+          -487.08037105356567,
+          8214.800960281927,
+          1989.7931040675637,
+          -10263.44724294106,
+          6198.1785620452765,
+          9967.195578914207,
+          -1656.2529900642558,
+          1510.8115566970423,
+          -8458.054283983884,
+          14045.7236043772,
+          54067.095750582506,
+          6788.358860486319
+        ],
+        "raw_intercept": -1655889.8049731299,
+        "raw_weights": [
+          0.885741349181379,
+          3222.6977699410368,
+          5210.793598197011,
+          800.0308190803323,
+          34.599780693906084,
+          -3172.9101263974853,
+          -910.7980658608454,
+          7698.81883184623,
+          2079.4243266728263,
+          -19.92774151509511,
+          9687.169367104663,
+          46.191594064848914,
+          -2237.296504658461,
+          3080.3476382975914,
+          -32193.184869154305,
+          459.8293815414076,
+          10.695760888553007,
+          24207.84740385701
+        ],
+        "optimization": {
+          "converged": true,
+          "iterations": 132019,
+          "learning_rate": 0.18134476106816458,
+          "gradient_l2_tolerance": 1e-08,
+          "gradient_l2_norm": 9.997010002149664e-09,
+          "smallest_hessian_eigenvalue": 0.0009030666301672344,
+          "largest_hessian_eigenvalue": 5.514358364199538,
+          "hessian_condition_number": 6106.2585860119325,
+          "initialization": "all weights and intercept = 0",
+          "history_sampling": "iterations 0-10, every 500, and final iteration"
+        },
+        "max_validation_prediction_difference_vs_lstsq_usd": 6.469490472227335e-07,
+        "direct_gradient_l2_norm": 9.997010002149664e-09
+      }
+    }
+  }
+]

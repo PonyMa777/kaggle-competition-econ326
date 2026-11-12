@@ -1,0 +1,56 @@
+{
+  "selection_rule": "Lowest arithmetic mean of 5 validation RMSEs among A and B",
+  "winner_among_compared_models": "B_full",
+  "candidate_features": {
+    "A_basic": [
+      "GrLivArea",
+      "OverallQual",
+      "Age"
+    ],
+    "B_full": [
+      "LotArea",
+      "OverallQual",
+      "OverallCond",
+      "YearBuilt",
+      "YearRemodAdd",
+      "ExterCond",
+      "BsmtCond",
+      "BsmtExposure",
+      "HeatingQC",
+      "GrLivArea",
+      "Fireplaces",
+      "GarageArea",
+      "GarageQual",
+      "PavedDrive",
+      "PoolQC",
+      "Age",
+      "QualityAdjustedLivingArea",
+      "RenovationFreshness"
+    ]
+  },
+  "n_splits": 5,
+  "seed": 42,
+  "sample_count": 1460,
+  "split_algorithm": "numpy.random.default_rng(seed).permutation; numpy.array_split",
+  "target": "SalePrice in USD, no log",
+  "preprocessing": "Modes, means and std(ddof=0) fitted on each training fold only",
+  "optimizer": "Zero-initialized full-batch GD; alpha=1/L from training design",
+  "B_reduction_in_mean_validation_rmse_vs_A_usd": 3836.0894403001876,
+  "B_reduction_in_mean_validation_rmse_vs_A_percent": 9.424858205556403,
+  "baseline_used_for_selection": false,
+  "source_sha256": "ed142e0a97bd49fc3b46c930209c55750fc4e806f5430c7d7409cb4cf25149cb",
+  "software": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "pandas": "3.0.1"
+  },
+  "checks": {
+    "every_house_validated_once": true,
+    "training_validation_disjoint": true,
+    "all_models_share_folds": true,
+    "all_predictions_finite": true,
+    "all_10_gd_fits_verified_against_lstsq": true,
+    "outcome_excluded_from_validation_preprocessing": true
+  },
+  "interpretation": "Model-selection CV, not an independent final test estimate."
+}

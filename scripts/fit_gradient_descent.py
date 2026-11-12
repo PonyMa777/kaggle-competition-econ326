@@ -28,11 +28,14 @@ CATEGORIES = {
     "PoolQC": (QUALITY, "PoolArea"),
 }
 
-def prepare_training_features(frame):
-    """Learn encodings/imputation from the supplied training rows only."""
+def prepare_features(frame, training_rules=None):
+    """Fit modes on training rows, or apply supplied modes to other rows.
+
+    This transformation never reads or requires SalePrice.
+    """
     numeric = [name for name in FEATURES[:15] if name not in CATEGORIES]
     required = numeric + list(CATEGORIES) + [
-        "YrSold", "TotalBsmtSF", "PoolArea", "SalePrice", "Id"]
+        "YrSold", "TotalBsmtSF", "PoolArea", "Id"]
     missing = sorted(set(required) - set(frame.columns))
     if missing:
         raise ValueError(f"Missing columns: {missing}")
@@ -48,11 +51,16 @@ def prepare_training_features(frame):
         absent = (values.isna() & frame[area_field].eq(0) if area_field
                   else pd.Series(False, index=frame.index))
         unknown = values.isna() & ~absent
-        modes = values.dropna().mode()
-        if modes.empty:
-            raise ValueError(f"No observed {name} level to learn a mode.")
-        # Ties use the first sorted mode; unknown does not become absence=0.
-        mode = str(modes.iloc[0])
+        if training_rules is None:
+            modes = values.dropna().mode()
+            if modes.empty:
+                raise ValueError(f"No observed {name} level to learn a mode.")
+            # Ties use the first sorted mode; unknown is not absence=0.
+            mode = str(modes.iloc[0])
+        else:
+            mode = training_rules[name]["training_mode"]
+        if mode not in mapping:
+            raise ValueError(f"Invalid fitted mode for {name}: {mode}")
         scores = values.map(mapping).astype(float)
         scores.loc[absent] = 0.0
         scores.loc[unknown] = float(mapping[mode])
@@ -71,9 +79,8 @@ def prepare_training_features(frame):
     X["QualityAdjustedLivingArea"] = frame["GrLivArea"] * frame["OverallQual"]
     X["RenovationFreshness"] = 1.0 / (1.0 + remodel_age.clip(lower=0))
     X = X[FEATURES].astype(float)
-    y = frame["SalePrice"].to_numpy(dtype=float)
-    if not np.isfinite(X.to_numpy()).all() or not np.isfinite(y).all():
-        raise ValueError("Unresolved missing/nonfinite numeric input or outcome.")
+    if not np.isfinite(X.to_numpy()).all():
+        raise ValueError("Unresolved missing/nonfinite numeric input.")
     audit = {
         "categorical_rules": rules,
         "negative_age_count": int((age < 0).sum()),
@@ -86,6 +93,14 @@ def prepare_training_features(frame):
             "RenovationFreshness": "1 / (1 + max(0, YrSold - YearRemodAdd))",
         },
     }
+    return X, audit
+
+def prepare_training_features(frame):
+    """Fit preprocessing and read the labeled training outcome."""
+    X, audit = prepare_features(frame)
+    y = frame["SalePrice"].to_numpy(dtype=float)
+    if not np.isfinite(y).all():
+        raise ValueError("Missing/nonfinite training outcome.")
     return X, y, audit
 
 def cost(A, y, theta):
@@ -175,9 +190,9 @@ cost to numerical precision for the current 18-feature model, using all
 | Learning rate | {opt['learning_rate']:.12f} |
 | Iterations | {opt['iterations']:,} |
 
-These are **training results**, not out-of-sample accuracy. Five-fold comparison
-of the basic and 18-feature models remains to be done. NearISU has not been
-constructed and is not included in this fit.
+These are **training results**, not out-of-sample accuracy. The separate
+[five-fold comparison](../five_fold_cv/README.md) reports validation performance.
+NearISU has not been constructed and is not included in this fit.
 
 ## Coefficients for the original feature units
 

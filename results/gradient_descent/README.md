@@ -16,9 +16,9 @@ cost to numerical precision for the current 18-feature model, using all
 | Learning rate | 0.180802912458 |
 | Iterations | 134,062 |
 
-These are **training results**, not out-of-sample accuracy. Five-fold comparison
-of the basic and 18-feature models remains to be done. NearISU has not been
-constructed and is not included in this fit.
+These are **training results**, not out-of-sample accuracy. The separate
+[five-fold comparison](../five_fold_cv/README.md) reports validation performance.
+NearISU has not been constructed and is not included in this fit.
 
 ## Coefficients for the original feature units
 
