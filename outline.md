@@ -123,33 +123,21 @@ $$
 
 We minimize squared errors in **sale prices measured in US dollars**. Validation RMSE is the square root of the mean squared prediction error on the held-out fold, so its unit is also US dollars. The factor `1/2` simplifies the derivative without changing the minimizing coefficients.
 
-**3. Gradient-descent updates.** With learning rate $\alpha$, update the entire weight vector as:
+**3. Gradient-descent updates.** With learning rate $\alpha$, update each weight and the intercept:
 
 $$
-\vec{w}^{\mathrm{new}}=\vec{w}^{\mathrm{old}}-\alpha\nabla_{\vec{w}}J(\vec{w}^{\mathrm{old}},b^{\mathrm{old}}),
+w_i^{\mathrm{new}}=w_i^{\mathrm{old}}-\alpha\frac{\partial J}{\partial w_i},\qquad
+b^{\mathrm{new}}=b^{\mathrm{old}}-\alpha\frac{\partial J}{\partial b}.
 $$
 
-where the gradient vector contains the derivatives with respect to all individual weights:
+In this subsection, `i` indexes the weights (`i = 1, ..., p`) and `r` indexes the training houses. The derivatives are:
 
 $$
-\nabla_{\vec{w}}J(\vec{w},b)=\frac{1}{m}\sum_{i=1}^{m}(\hat y_i-y_i)\vec{x}_i.
+\frac{\partial J}{\partial w_i}=\frac{1}{m}\sum_{r=1}^{m}\left(f_{\vec{w},b}(\vec{x}_r)-y_r\right)x_{ri},\qquad
+\frac{\partial J}{\partial b}=\frac{1}{m}\sum_{r=1}^{m}\left(f_{\vec{w},b}(\vec{x}_r)-y_r\right).
 $$
 
-Equivalently, each scalar coefficient and the intercept are updated as follows. All derivatives are evaluated at the old parameter values, and the updates are applied simultaneously:
-
-$$
-w_j^{\mathrm{new}}=w_j^{\mathrm{old}}-\alpha\frac{\partial J}{\partial w_j},\qquad
-b^{\mathrm{new}}=b^{\mathrm{old}}-\alpha\frac{\partial J}{\partial b},
-$$
-
-The component derivatives are:
-
-$$
-\frac{\partial J}{\partial w_j}=\frac{1}{m}\sum_{i=1}^{m}(\hat y_i-y_i)x_{ij},\qquad
-\frac{\partial J}{\partial b}=\frac{1}{m}\sum_{i=1}^{m}(\hat y_i-y_i).
-$$
-
-Here `w_j` and `x_{ij}` are individual scalar entries, so they have no vector arrows.
+Evaluate all derivatives at the old parameter values, then apply the updates simultaneously.
 
 If we scale features for gradient descent, we fit the scaling parameters on each cross-validation training fold and apply them to its validation fold. Gradient descent estimates the coefficients for a given feature set; cross-validation compares feature sets using RMSE in US dollars. After selecting a model, we fit it on all labeled houses; its predictions are already in US dollars. The unlabeled competition test set may be used for a separate prediction exercise; the course project evaluates accuracy using held-out folds of the labeled data.
 
