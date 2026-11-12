@@ -93,6 +93,22 @@ $$
 $$
 
 Each `w_j` is the coefficient of the named feature; `b` is the intercept. The quality and condition terms use the numeric scores defined above. Smaller candidate models omit selected terms.
+**Vectorized form (equivalent to the expanded function).** For house `i`, put the same 22 features, in exactly the order above, into a column vector `x_i`, and put their 22 coefficients into a column vector `w`:
+
+$$
+\mathbf{x}_i=
+\begin{bmatrix}
+\mathrm{LotArea}_i & \mathrm{OverallQual}_i & \cdots & \mathrm{RenovationFreshness}_i
+\end{bmatrix}^{\mathsf T},\qquad
+\mathbf{w}=
+\begin{bmatrix}w_1 & w_2 & \cdots & w_{22}\end{bmatrix}^{\mathsf T},
+$$
+
+$$
+\hat y_i=f_{\mathbf w,b}(\mathbf x_i)=\mathbf w^{\mathsf T}\mathbf x_i+b.
+$$
+
+The expanded and vectorized equations make the same prediction. For all `m` training houses at once, stack the feature rows into `X` (an `m × 22` matrix): `ŷ = Xw + b1`. The weights are learned from the training data; the numbers in a vectorization example are not project coefficients.
 
 **2. Cost function (training objective).** For the `m` labeled houses in the current training portion,
 
