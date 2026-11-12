@@ -18,27 +18,27 @@ We compare candidate models using five-fold cross-validation on the labeled data
 
 ## Variables
 
-| Variable | Construction | Description and Coding | Reason for inclusion |
-|---|---|---|---|
-| SalePrice | Observed sale price in USD; outcome, not a feature. | Observed sale price in USD; prediction target. | Directly measures the transaction price that the model aims to predict. |
-| LotArea | Lot size in square feet. | Lot area in square feet. | More land may increase value beyond the house itself. |
-| OverallQual | Overall material and finish rating, 1–10. | Overall material and finish quality, rated 1–10. | Captures broad construction quality. |
-| OverallCond | Overall condition rating, 1–10. | Overall current condition, rated 1–10. | Captures current condition separately from quality. |
-| YearBuilt | Original construction year. | Original construction year. | Captures differences between older and newer homes. |
-| YearRemodAdd | Most recent remodeling year. | Most recent remodeling year; equals the construction year if never remodeled. | Captures how recently the home was updated. |
-| ExterCond | Exterior condition rating. | Current exterior condition; Po=1, Fa=2, TA=3, Gd=4, Ex=5. | Captures exterior wear and maintenance needs. |
-| BsmtCond | Basement condition rating; 0 if no basement. | Current basement condition; Po=1 through Ex=5; no basement=0. | Captures basement wear or damage. |
-| BsmtExposure | Basement exposure rating; 0 if no basement. | Basement exposure; No=1, Mn=2, Av=3, Gd=4; no basement=0. | Better exposure may improve light and usability. |
-| HeatingQC | Heating quality and condition rating. | Heating quality and condition; Po=1 through Ex=5. | Captures comfort and expected repair costs. |
-| GrLivArea | Above-ground living area in square feet. | Above-ground living area in square feet. | Measures the main usable living space. |
-| Fireplaces | Number of fireplaces. | Number of fireplaces. | Measures the presence and extent of this amenity. |
-| GarageArea | Garage area in square feet; 0 if no garage. | Garage area in square feet; no garage=0. | Captures parking and storage space. |
-| GarageQual | Garage quality rating; 0 if no garage. | Garage quality; Po=1 through Ex=5; no garage=0. | Captures quality beyond garage size. |
-| PavedDrive | Driveway surface category. | Driveway paving; N=1 (dirt/gravel), P=2 (partial pavement), Y=3 (paved). | May affect convenience and reflect property upkeep. |
-| PoolQC | Pool quality rating; 0 if no pool. | Pool quality; Fa=2, TA=3, Gd=4, Ex=5; no pool=0. | Tests whether a rare amenity adds predictive information. |
-| Age | `max(0, YrSold - YearBuilt)`. | Age at sale = sale year minus construction year, with negative values capped at 0. | Measures the home's age at sale. |
-| QualityAdjustedLivingArea | `GrLivArea × OverallQual`. | Quality-adjusted living area = GrLivArea × OverallQual. | Allows the value of additional living area to vary with quality. |
-| RenovationFreshness | `1 / (1 + max(0, YrSold - YearRemodAdd))`. | Renovation freshness = 1 / (1 + years since remodeling); higher values indicate a more recent renovation. | Higher values indicate a more recent renovation at sale. |
+| No. | Feature | Construction | Description and Coding | Reason for inclusion |
+|---:|---|---|---|---|
+| 1 | SalePrice | Observed sale price in USD; outcome, not a feature. | Observed sale price in USD; prediction target. | Directly measures the transaction price that the model aims to predict. |
+| 2 | LotArea | Lot size in square feet. | Lot area in square feet. | More land may increase value beyond the house itself. |
+| 3 | OverallQual | Overall material and finish rating, 1–10. | Overall material and finish quality, rated 1–10. | Captures broad construction quality. |
+| 4 | OverallCond | Overall condition rating, 1–10. | Overall current condition, rated 1–10. | Captures current condition separately from quality. |
+| 5 | YearBuilt | Original construction year. | Original construction year. | Captures differences between older and newer homes. |
+| 6 | YearRemodAdd | Most recent remodeling year. | Most recent remodeling year; equals the construction year if never remodeled. | Captures how recently the home was updated. |
+| 7 | ExterCond | Exterior condition rating. | Current exterior condition; Po=1, Fa=2, TA=3, Gd=4, Ex=5. | Captures exterior wear and maintenance needs. |
+| 8 | BsmtCond | Basement condition rating; 0 if no basement. | Current basement condition; Po=1 through Ex=5; no basement=0. | Captures basement wear or damage. |
+| 9 | BsmtExposure | Basement exposure rating; 0 if no basement. | Basement exposure; No=1, Mn=2, Av=3, Gd=4; no basement=0. | Better exposure may improve light and usability. |
+| 10 | HeatingQC | Heating quality and condition rating. | Heating quality and condition; Po=1 through Ex=5. | Captures comfort and expected repair costs. |
+| 11 | GrLivArea | Above-ground living area in square feet. | Above-ground living area in square feet. | Measures the main usable living space. |
+| 12 | Fireplaces | Number of fireplaces. | Number of fireplaces. | Measures the presence and extent of this amenity. |
+| 13 | GarageArea | Garage area in square feet; 0 if no garage. | Garage area in square feet; no garage=0. | Captures parking and storage space. |
+| 14 | GarageQual | Garage quality rating; 0 if no garage. | Garage quality; Po=1 through Ex=5; no garage=0. | Captures quality beyond garage size. |
+| 15 | PavedDrive | Driveway surface category. | Driveway paving; N=1 (dirt/gravel), P=2 (partial pavement), Y=3 (paved). | May affect convenience and reflect property upkeep. |
+| 16 | PoolQC | Pool quality rating; 0 if no pool. | Pool quality; Fa=2, TA=3, Gd=4, Ex=5; no pool=0. | Tests whether a rare amenity adds predictive information. |
+| 17 | Age | `max(0, YrSold - YearBuilt)`. | Age at sale = sale year minus construction year, with negative values capped at 0. | Measures the home's age at sale. |
+| 18 | QualityAdjustedLivingArea | `GrLivArea × OverallQual`. | Quality-adjusted living area = GrLivArea × OverallQual. | Allows the value of additional living area to vary with quality. |
+| 19 | RenovationFreshness | `1 / (1 + max(0, YrSold - YearRemodAdd))`. | Renovation freshness = 1 / (1 + years since remodeling); higher values indicate a more recent renovation. | Higher values indicate a more recent renovation at sale. |
 
 **Coding assumptions.** We encode ordered quality and condition levels as numeric scores: `Po=1`, `Fa=2`, `TA=3`, `Gd=4`, and `Ex=5`. Where `NA` documents the absence of a basement, garage, or pool, we use 0; a genuinely unknown value is not coded as 0. This assumes equal modeled differences between adjacent levels and places absence below the lowest-quality existing facility. `BsmtExposure` uses `No=1`, `Mn=2`, `Av=3`, `Gd=4`, and 0 for no basement. `PavedDrive` is scored as `N=1` (dirt/gravel), `P=2` (partial pavement), and `Y=3` (paved), assuming equal modeled differences between adjacent levels. `Neighborhood` is only a possible future candidate; it is not yet part of the selected feature list.
 
