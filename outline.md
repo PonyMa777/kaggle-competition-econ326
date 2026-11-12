@@ -77,13 +77,22 @@ The table uses the numeric scores defined above for ordered quality and conditio
 
 We use linear regression to predict **log sale price**. Let `y_i = log(SalePrice_i)` and let `x_i = (x_{i1}, ..., x_{ip})` contain the preprocessed features selected for a candidate model from the Variables table. The full candidate has up to 22 features (19 raw and three constructed); smaller candidates use subsets. We compare feature sets by five-fold cross-validation.
 
-**1. Prediction function (model).**
+**1. Prediction function (model).** The full 22-feature candidate is:
 
 $$
-\hat y_i=f_{\mathbf w,b}(\mathbf x_i)=b+\sum_{j=1}^{p}w_jx_{ij}.
+\begin{aligned}
+\hat y_i=f_{\mathbf w,b}(\mathbf x_i) &= b + w_{1}\,\mathrm{LotArea}_i + w_{2}\,\mathrm{OverallQual}_i + w_{3}\,\mathrm{OverallCond}_i \\
+&\quad + w_{4}\,\mathrm{YearBuilt}_i + w_{5}\,\mathrm{YearRemodAdd}_i + w_{6}\,\mathrm{ExterQual}_i \\
+&\quad + w_{7}\,\mathrm{ExterCond}_i + w_{8}\,\mathrm{BsmtQual}_i + w_{9}\,\mathrm{BsmtCond}_i \\
+&\quad + w_{10}\,\mathrm{BsmtExposure}_i + w_{11}\,\mathrm{HeatingQC}_i + w_{12}\,\mathrm{GrLivArea}_i \\
+&\quad + w_{13}\,\mathrm{Fireplaces}_i + w_{14}\,\mathrm{FireplaceQu}_i + w_{15}\,\mathrm{GarageArea}_i \\
+&\quad + w_{16}\,\mathrm{GarageQual}_i + w_{17}\,\mathrm{GarageCond}_i + w_{18}\,\mathrm{PavedDrive}_i \\
+&\quad + w_{19}\,\mathrm{PoolQC}_i + w_{20}\,\mathrm{Age}_i + w_{21}\,\mathrm{QualityAdjustedLivingArea}_i \\
+&\quad + w_{22}\,\mathrm{RenovationFreshness}_i
+\end{aligned}
 $$
 
-Here `b` is the intercept and each `w_j` is the coefficient of one feature. The one-feature case is `f_{w,b}(x)=wx+b`.
+Each `w_j` is the coefficient of the named feature; `b` is the intercept. The quality and condition terms use the numeric scores defined above. Smaller candidate models omit selected terms.
 
 **2. Cost function (training objective).** For the `m` labeled houses in the current training portion,
 
