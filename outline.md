@@ -113,7 +113,7 @@ The expanded and vectorized equations make the same prediction. For all `m` trai
 **2. Cost function (training objective).** For the `m` labeled houses in the current training portion,
 
 $$
-J(\mathbf w,b)=\frac{1}{2m}\sum_{i=1}^{m}(\hat y_i-y_i)^2.
+J(\mathbf w,b)=\frac{1}{m}\sum_{i=1}^{m}\frac{1}{2}\left(f_{\mathbf w,b}(\mathbf x_i)-y_i\right)^2.
 $$
 
 We minimize squared errors in **log prices**, consistent with the log RMSE used for validation. The factor `1/2` simplifies the derivative without changing the minimizing coefficients.
