@@ -123,14 +123,14 @@ $$
 
 We minimize squared errors in **sale prices measured in US dollars**. Validation RMSE is the square root of the mean squared prediction error on the held-out fold, so its unit is also US dollars. The factor `1/2` simplifies the derivative without changing the minimizing coefficients.
 
-**3. Gradient-descent updates.** With learning rate $\alpha$, update each weight and the intercept:
+**3. Gradient-descent updates.** We will go through each weight, from $w_1$ to $w_n$, and calculate its partial derivative, where $n$ is the number of features (22 in the full model). With learning rate $\alpha$, update each weight and the intercept:
 
 $$
 w_i^{\mathrm{new}}=w_i^{\mathrm{old}}-\alpha\frac{\partial J}{\partial w_i},\qquad
 b^{\mathrm{new}}=b^{\mathrm{old}}-\alpha\frac{\partial J}{\partial b}.
 $$
 
-In this subsection, `i` indexes the weights (`i = 1, ..., p`) and `r` indexes the training houses. The derivatives are:
+In this subsection, `i` indexes the weights (`i = 1, ..., n`) and `r` indexes the training houses. The derivatives are:
 
 $$
 \frac{\partial J}{\partial w_i}=\frac{1}{m}\sum_{r=1}^{m}\left(f_{\vec{w},b}(\vec{x}_r)-y_r\right)x_{ri},\qquad
