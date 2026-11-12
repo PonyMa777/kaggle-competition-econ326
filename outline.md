@@ -6,7 +6,7 @@ Advanced track (prediction-focused).
 
 ## Research Statement
 
-Homebuyers and real estate professionals need reliable estimates of house prices when comparing properties with different features. This project asks: How accurately can a linear regression model predict sale prices in Ames, Iowa, using living area, overall quality, and age? How much does adding renovation, amenity, and neighborhood information improve out-of-sample prediction relative to this basic model? We will use gradient descent to estimate model coefficients and compare feature sets using the same five-fold cross-validation splits. Prediction accuracy will be measured by RMSE in US dollars; lower values indicate better predictions. This is a prediction study; associations between features and prices are not interpreted as causal effects.
+Homebuyers and real estate professionals need reliable estimates of house prices when comparing properties with different features. This project asks: How accurately can house size, quality, and age predict sale prices in Ames, Iowa? Does adding information on renovations, amenities, and neighborhood location improve prediction accuracy for previously unseen houses? We will use gradient descent to estimate model coefficients and reduce the effect of overfitting by using five-fold cross-validation splits. Prediction accuracy will be measured by RMSE in US dollars; lower values indicate better predictions. This is a prediction study; associations between features and prices are not interpreted as causal effects.
 
 ## Data
 
