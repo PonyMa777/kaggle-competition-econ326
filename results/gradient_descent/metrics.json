@@ -1,0 +1,53 @@
+{
+  "model": "18-feature linear regression fitted by full-batch gradient descent",
+  "target": "SalePrice (USD), no log transform",
+  "sample_count": 1460,
+  "feature_count": 18,
+  "cost_definition": "J = sum((prediction - SalePrice)^2) / (2*m)",
+  "training_cost_usd2": 609081328.154381,
+  "training_mse_usd2": 1218162656.308762,
+  "training_rmse_usd": 34902.18698461118,
+  "training_r_squared": 0.8068489787118345,
+  "initial_cost_usd2": 19519633853.882877,
+  "mean_prediction_baseline_cost_usd2": 3153394292.6746497,
+  "raw_intercept": -2475293.010242917,
+  "standardized_intercept": 180921.1958904109,
+  "optimization": {
+    "converged": true,
+    "iterations": 134062,
+    "learning_rate": 0.1808029124578189,
+    "gradient_l2_tolerance": 1e-08,
+    "gradient_l2_norm": 9.999413569248813e-09,
+    "smallest_hessian_eigenvalue": 0.0009121399436255213,
+    "largest_hessian_eigenvalue": 5.530884355821971,
+    "hessian_condition_number": 6063.63573317284,
+    "initialization": "all weights and intercept = 0",
+    "history_sampling": "iterations 0-10, every 500, and final iteration"
+  },
+  "verification": {
+    "checks": {
+      "design_full_rank": true,
+      "gd_predictions_within_0_001_usd_of_lstsq": true,
+      "gd_cost_within_0_001_usd2_of_lstsq": true,
+      "raw_and_scaled_predictions_within_0_000001_usd": true,
+      "gradient_meets_tolerance": true,
+      "recorded_cost_nonincreasing_to_roundoff": true
+    },
+    "design_rank_including_intercept": 19,
+    "least_squares_reference_cost_usd2": 609081328.1543808,
+    "gd_minus_reference_cost_usd2": 2.384185791015625e-07,
+    "max_prediction_difference_vs_lstsq_usd": 7.52683263272047e-07,
+    "max_standardized_coefficient_difference_vs_lstsq": 7.757393177598715e-06,
+    "max_prediction_difference_after_unscaling_usd": 1.1059455573558807e-09,
+    "direct_gradient_l2_norm": 9.999413569248813e-09,
+    "gradient_based_cost_gap_bound_usd2": 5.480972104535279e-14
+  },
+  "evaluation_scope": "In-sample fit on all labeled rows; no CV or test evaluation.",
+  "source_file": "train.csv",
+  "source_sha256": "ed142e0a97bd49fc3b46c930209c55750fc4e806f5430c7d7409cb4cf25149cb",
+  "software": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "pandas": "3.0.1"
+  }
+}

@@ -1,0 +1,226 @@
+{
+  "feature_order": [
+    "LotArea",
+    "OverallQual",
+    "OverallCond",
+    "YearBuilt",
+    "YearRemodAdd",
+    "ExterCond",
+    "BsmtCond",
+    "BsmtExposure",
+    "HeatingQC",
+    "GrLivArea",
+    "Fireplaces",
+    "GarageArea",
+    "GarageQual",
+    "PavedDrive",
+    "PoolQC",
+    "Age",
+    "QualityAdjustedLivingArea",
+    "RenovationFreshness"
+  ],
+  "target": "SalePrice",
+  "target_units": "USD",
+  "target_transformation": "none",
+  "preprocessing_fit_scope": "all training rows",
+  "feature_means": [
+    10516.828082191782,
+    6.0993150684931505,
+    5.575342465753424,
+    1971.267808219178,
+    1984.8657534246574,
+    3.0835616438356164,
+    2.934931506849315,
+    1.6308219178082193,
+    4.145205479452055,
+    1515.463698630137,
+    0.613013698630137,
+    472.9801369863014,
+    2.8102739726027397,
+    2.856164383561644,
+    0.01780821917808219,
+    36.54794520547945,
+    9673.956164383562,
+    0.18507686783817875
+  ],
+  "feature_scales_ddof0": [
+    9977.846105448105,
+    1.3825228366585953,
+    1.1124181757710097,
+    30.192558810489448,
+    20.63833525182198,
+    0.3509336660693292,
+    0.5519693839228227,
+    1.0662997772024878,
+    0.9591721738812369,
+    525.3003935623227,
+    0.6444455723354444,
+    213.73160807515626,
+    0.7226501315368633,
+    0.49642179959690624,
+    0.26885982789500695,
+    30.239791029887165,
+    5184.968289436494,
+    0.27887945475738785
+  ],
+  "standardized_intercept": 180921.1958904109,
+  "standardized_weights": [
+    5053.795217410117,
+    2414.355958566511,
+    5651.477460328805,
+    36766.09956283101,
+    599.0858666343737,
+    -732.7401057266479,
+    222.9464315385657,
+    7865.845443889288,
+    2863.893331598491,
+    -11609.834456752482,
+    7241.55438527583,
+    10626.09850021493,
+    -2060.8356285147092,
+    799.75820567802,
+    -4001.9612025022457,
+    25621.711044106527,
+    57340.69265409154,
+    5280.993318245235
+  ],
+  "raw_intercept": -2475293.010242917,
+  "raw_weights": [
+    0.5065016200891937,
+    1746.3407435653955,
+    5080.353398947122,
+    1217.7205580223228,
+    29.027819314132206,
+    -2087.9732455816606,
+    403.91086540723506,
+    7376.76740824788,
+    2985.7969294604386,
+    -22.10132449743742,
+    11236.875069267266,
+    49.7170193773042,
+    -2851.775068707067,
+    1611.0457001030625,
+    -14884.935521364168,
+    847.2846594337768,
+    11.059024752555114,
+    18936.47318996465
+  ],
+  "preprocessing": {
+    "categorical_rules": {
+      "ExterCond": {
+        "mapping": {
+          "Po": 1,
+          "Fa": 2,
+          "TA": 3,
+          "Gd": 4,
+          "Ex": 5
+        },
+        "absence_area_field": null,
+        "absence_score": null,
+        "confirmed_absence_count": 0,
+        "unknown_count": 0,
+        "unknown_house_ids": [],
+        "training_mode": "TA"
+      },
+      "BsmtCond": {
+        "mapping": {
+          "Po": 1,
+          "Fa": 2,
+          "TA": 3,
+          "Gd": 4,
+          "Ex": 5
+        },
+        "absence_area_field": "TotalBsmtSF",
+        "absence_score": 0,
+        "confirmed_absence_count": 37,
+        "unknown_count": 0,
+        "unknown_house_ids": [],
+        "training_mode": "TA"
+      },
+      "BsmtExposure": {
+        "mapping": {
+          "No": 1,
+          "Mn": 2,
+          "Av": 3,
+          "Gd": 4
+        },
+        "absence_area_field": "TotalBsmtSF",
+        "absence_score": 0,
+        "confirmed_absence_count": 37,
+        "unknown_count": 1,
+        "unknown_house_ids": [
+          949
+        ],
+        "training_mode": "No"
+      },
+      "HeatingQC": {
+        "mapping": {
+          "Po": 1,
+          "Fa": 2,
+          "TA": 3,
+          "Gd": 4,
+          "Ex": 5
+        },
+        "absence_area_field": null,
+        "absence_score": null,
+        "confirmed_absence_count": 0,
+        "unknown_count": 0,
+        "unknown_house_ids": [],
+        "training_mode": "Ex"
+      },
+      "GarageQual": {
+        "mapping": {
+          "Po": 1,
+          "Fa": 2,
+          "TA": 3,
+          "Gd": 4,
+          "Ex": 5
+        },
+        "absence_area_field": "GarageArea",
+        "absence_score": 0,
+        "confirmed_absence_count": 81,
+        "unknown_count": 0,
+        "unknown_house_ids": [],
+        "training_mode": "TA"
+      },
+      "PavedDrive": {
+        "mapping": {
+          "N": 1,
+          "P": 2,
+          "Y": 3
+        },
+        "absence_area_field": null,
+        "absence_score": null,
+        "confirmed_absence_count": 0,
+        "unknown_count": 0,
+        "unknown_house_ids": [],
+        "training_mode": "Y"
+      },
+      "PoolQC": {
+        "mapping": {
+          "Po": 1,
+          "Fa": 2,
+          "TA": 3,
+          "Gd": 4,
+          "Ex": 5
+        },
+        "absence_area_field": "PoolArea",
+        "absence_score": 0,
+        "confirmed_absence_count": 1453,
+        "unknown_count": 0,
+        "unknown_house_ids": [],
+        "training_mode": "Gd"
+      }
+    },
+    "negative_age_count": 0,
+    "negative_remodel_age_count": 1,
+    "negative_remodel_age_house_ids": [
+      524
+    ],
+    "constructed_features": {
+      "Age": "max(0, YrSold - YearBuilt)",
+      "QualityAdjustedLivingArea": "GrLivArea * OverallQual",
+      "RenovationFreshness": "1 / (1 + max(0, YrSold - YearRemodAdd))"
+    }
+  }
+}
