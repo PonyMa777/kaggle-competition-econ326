@@ -78,13 +78,13 @@ The table uses the numeric scores defined above for ordered quality and conditio
 
 ## Proposed Regression Model
 
-We use linear regression to predict **sale price in US dollars**. Let `y_i = SalePrice_i` be the observed sale price and `ŷ_i` its prediction, both in US dollars. Let `x_i = (x_{i1}, ..., x_{ip})` contain the preprocessed features selected for a candidate model from the Variables table. The full candidate has up to 22 features (19 raw and three constructed); smaller candidates use subsets. We compare feature sets by five-fold cross-validation.
+We use linear regression to predict **sale price in US dollars**. Let `y_i = SalePrice_i` be the observed sale price and `ŷ_i` its prediction, both in US dollars. Let $\vec{x}_i=(x_{i1},\ldots,x_{ip})$ contain the preprocessed features selected for a candidate model from the Variables table. The full candidate has up to 22 features (19 raw and three constructed); smaller candidates use subsets. We compare feature sets by five-fold cross-validation.
 
 **1. Prediction function (model).** The full 22-feature candidate is:
 
 $$
 \begin{aligned}
-\hat y_i=f_{\mathbf w,b}(\mathbf x_i) &= b + w_{1}\,\mathrm{LotArea}_i + w_{2}\,\mathrm{OverallQual}_i + w_{3}\,\mathrm{OverallCond}_i \\
+\hat y_i=f_{\vec{w},b}(\vec{x}_i) &= b + w_{1}\,\mathrm{LotArea}_i + w_{2}\,\mathrm{OverallQual}_i + w_{3}\,\mathrm{OverallCond}_i \\
 &\quad + w_{4}\,\mathrm{YearBuilt}_i + w_{5}\,\mathrm{YearRemodAdd}_i + w_{6}\,\mathrm{ExterQual}_i \\
 &\quad + w_{7}\,\mathrm{ExterCond}_i + w_{8}\,\mathrm{BsmtQual}_i + w_{9}\,\mathrm{BsmtCond}_i \\
 &\quad + w_{10}\,\mathrm{BsmtExposure}_i + w_{11}\,\mathrm{HeatingQC}_i + w_{12}\,\mathrm{GrLivArea}_i \\
@@ -118,24 +118,38 @@ The arrows indicate vectors. The dot product multiplies each weight by its corre
 **2. Cost function (training objective).** For the `m` labeled houses in the current training portion,
 
 $$
-J(\mathbf w,b)=\frac{1}{m}\sum_{i=1}^{m}\frac{1}{2}\left(f_{\mathbf w,b}(\mathbf x_i)-y_i\right)^2.
+J(\vec{w},b)=\frac{1}{m}\sum_{i=1}^{m}\frac{1}{2}\left(f_{\vec{w},b}(\vec{x}_i)-y_i\right)^2.
 $$
 
 We minimize squared errors in **sale prices measured in US dollars**. Validation RMSE is the square root of the mean squared prediction error on the held-out fold, so its unit is also US dollars. The factor `1/2` simplifies the derivative without changing the minimizing coefficients.
 
-**3. Gradient-descent updates.** At each iteration, with learning rate `\alpha`,
+**3. Gradient-descent updates.** With learning rate $\alpha$, update the entire weight vector as:
+
+$$
+\vec{w}^{\mathrm{new}}=\vec{w}^{\mathrm{old}}-\alpha\nabla_{\vec{w}}J(\vec{w}^{\mathrm{old}},b^{\mathrm{old}}),
+$$
+
+where the gradient vector contains the derivatives with respect to all individual weights:
+
+$$
+\nabla_{\vec{w}}J(\vec{w},b)=\frac{1}{m}\sum_{i=1}^{m}(\hat y_i-y_i)\vec{x}_i.
+$$
+
+Equivalently, each scalar coefficient and the intercept are updated as follows. All derivatives are evaluated at the old parameter values, and the updates are applied simultaneously:
 
 $$
 w_j^{\mathrm{new}}=w_j^{\mathrm{old}}-\alpha\frac{\partial J}{\partial w_j},\qquad
 b^{\mathrm{new}}=b^{\mathrm{old}}-\alpha\frac{\partial J}{\partial b},
 $$
 
-where
+The component derivatives are:
 
 $$
 \frac{\partial J}{\partial w_j}=\frac{1}{m}\sum_{i=1}^{m}(\hat y_i-y_i)x_{ij},\qquad
 \frac{\partial J}{\partial b}=\frac{1}{m}\sum_{i=1}^{m}(\hat y_i-y_i).
 $$
+
+Here `w_j` and `x_{ij}` are individual scalar entries, so they have no vector arrows.
 
 If we scale features for gradient descent, we fit the scaling parameters on each cross-validation training fold and apply them to its validation fold. Gradient descent estimates the coefficients for a given feature set; cross-validation compares feature sets using RMSE in US dollars. After selecting a model, we fit it on all labeled houses; its predictions are already in US dollars. The unlabeled competition test set may be used for a separate prediction exercise; the course project evaluates accuracy using held-out folds of the labeled data.
 
