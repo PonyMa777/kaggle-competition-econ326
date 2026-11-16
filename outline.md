@@ -6,7 +6,7 @@ Advanced track (prediction-focused).
 
 ## Research Statement
 
-Homebuyers and real estate professionals need reliable estimates of house prices when comparing properties with different features. This project asks: How accurately can house size, quality, and age predict sale prices in Ames, Iowa? Does adding information on renovations, amenities, and neighborhood location improve prediction accuracy for previously unseen houses? We will use gradient descent to estimate model coefficients and reduce the effect of overfitting by using five-fold cross-validation splits. Prediction accuracy will be measured by RMSE in US dollars; lower values indicate better predictions. This is a prediction study; associations between features and prices are not interpreted as causal effects.
+Homebuyers and real estate professionals need reliable estimates of house prices when comparing properties with different features. This project asks: How accurately can house size, quality, and age predict sale prices in Ames, Iowa? Does adding information on renovations, amenities, and neighborhood location improve prediction accuracy for out-of-sample houses? We will use ordinary linear regression (OLS) as a benchmark and compare it with a machine-learning regression approach. Both will predict the natural logarithm of sale price. We will use five-fold cross-validation to compare candidate models and select the model with the lowest mean validation log RMSE. This is a prediction study; associations between features and prices are not interpreted as causal effects.
 
 ## Data
 
@@ -20,7 +20,7 @@ We compare candidate models using five-fold cross-validation on the labeled data
 
 | No. | Feature | Construction | Description and Coding | Reason for inclusion |
 |---:|---|---|---|---|
-| 1 | SalePrice | Observed sale price in USD; outcome, not a feature. | Observed sale price in USD; prediction target. | Directly measures the transaction price that the model aims to predict. |
+| 1 | log(SalePrice) | Natural logarithm of the observed sale price in USD; outcome, not a feature. | Prediction target: y = ln(SalePrice). | Makes errors reflect relative rather than absolute price differences. |
 | 2 | LotArea | Lot size in square feet. | Lot area in square feet. | More land may increase value beyond the house itself. |
 | 3 | OverallQual | Overall material and finish rating, 1–10. | Overall material and finish quality, rated 1–10. | Captures broad construction quality. |
 | 4 | OverallCond | Overall condition rating, 1–10. | Overall current condition, rated 1–10. | Captures current condition separately from quality. |
@@ -49,28 +49,29 @@ The table uses the numeric scores defined above for ordered quality and conditio
 | No. | Variable | Mean | SD | Min | Max |
 |---:|---|---:|---:|---:|---:|
 | 1 | SalePrice (USD) | 180,921 | 79,443 | 34,900 | 755,000 |
-| 2 | LotArea (sq ft) | 10,517 | 9,981 | 1,300 | 215,245 |
-| 3 | OverallQual | 6.099 | 1.383 | 1 | 10 |
-| 4 | OverallCond | 5.575 | 1.113 | 1 | 9 |
-| 5 | YearBuilt | 1971.268 | 30.203 | 1872 | 2010 |
-| 6 | YearRemodAdd | 1984.866 | 20.645 | 1950 | 2010 |
-| 7 | ExterCond (score) | 3.084 | 0.351 | 1 | 5 |
-| 8 | BsmtCond (score) | 2.935 | 0.552 | 0 | 4 |
-| 9 | BsmtExposure (score) | 1.631 | 1.067 | 0 | 4 |
-| 10 | HeatingQC (score) | 4.145 | 0.960 | 1 | 5 |
-| 11 | GrLivArea (sq ft) | 1,515 | 525 | 334 | 5,642 |
-| 12 | Fireplaces (count) | 0.613 | 0.645 | 0 | 3 |
-| 13 | GarageArea (sq ft) | 472.980 | 213.805 | 0 | 1,418 |
-| 14 | GarageQual (score) | 2.810 | 0.723 | 0 | 5 |
-| 15 | PavedDrive (score) | 2.856 | 0.497 | 1 | 3 |
-| 16 | PoolQC (score) | 0.018 | 0.269 | 0 | 5 |
-| 17 | Age (years) | 36.548 | 30.250 | 0 | 136 |
-| 18 | QualityAdjustedLivingArea | 9,673.956 | 5,186.745 | 334 | 56,420 |
-| 19 | RenovationFreshness | 0.185 | 0.279 | 0.016 | 1 |
+| 2 | log(SalePrice) | 12.024 | 0.399 | 10.460 | 13.534 |
+| 3 | LotArea (sq ft) | 10,517 | 9,981 | 1,300 | 215,245 |
+| 4 | OverallQual | 6.099 | 1.383 | 1 | 10 |
+| 5 | OverallCond | 5.575 | 1.113 | 1 | 9 |
+| 6 | YearBuilt | 1971.268 | 30.203 | 1872 | 2010 |
+| 7 | YearRemodAdd | 1984.866 | 20.645 | 1950 | 2010 |
+| 8 | ExterCond (score) | 3.084 | 0.351 | 1 | 5 |
+| 9 | BsmtCond (score) | 2.935 | 0.552 | 0 | 4 |
+| 10 | BsmtExposure (score) | 1.631 | 1.067 | 0 | 4 |
+| 11 | HeatingQC (score) | 4.145 | 0.960 | 1 | 5 |
+| 12 | GrLivArea (sq ft) | 1,515 | 525 | 334 | 5,642 |
+| 13 | Fireplaces (count) | 0.613 | 0.645 | 0 | 3 |
+| 14 | GarageArea (sq ft) | 472.980 | 213.805 | 0 | 1,418 |
+| 15 | GarageQual (score) | 2.810 | 0.723 | 0 | 5 |
+| 16 | PavedDrive (score) | 2.856 | 0.497 | 1 | 3 |
+| 17 | PoolQC (score) | 0.018 | 0.269 | 0 | 5 |
+| 18 | Age (years) | 36.548 | 30.250 | 0 | 136 |
+| 19 | QualityAdjustedLivingArea | 9,673.956 | 5,186.745 | 334 | 56,420 |
+| 20 | RenovationFreshness | 0.185 | 0.279 | 0.016 | 1 |
 
 ## Proposed Regression Model
 
-We use linear regression to predict **sale price in US dollars**. Let `y_i = SalePrice_i` be the observed sale price and `ŷ_i` its prediction, both in US dollars. Let $\vec{x}_i=(x_{i1},\ldots,x_{ip})$ contain the preprocessed features selected for a candidate model from the Variables table. The full candidate has up to 18 features (15 raw and three constructed); smaller candidates use subsets. We compare feature sets by five-fold cross-validation.
+We use linear regression to predict **the natural logarithm of sale price**. Let `y_i = ln(SalePrice_i)` be the observed log price and `ŷ_i` its predicted log price. This assumes log price is linear in the selected features; it does not require taking logs of the features. Let $\vec{x}_i=(x_{i1},\ldots,x_{ip})$ contain the preprocessed features selected for a candidate model from the Variables table. The full candidate has up to 18 features (15 raw and three constructed); smaller candidates use subsets. We compare feature sets by five-fold cross-validation.
 
 **1. Prediction function (model).** The full 18-feature candidate is:
 
@@ -108,10 +109,16 @@ The arrows indicate vectors. The dot product multiplies each weight by its corre
 **2. Cost function (training objective).** For the `m` labeled houses in the current training portion,
 
 $$
-J(\vec{w},b)=\frac{1}{m}\sum_{i=1}^{m}\frac{1}{2}\left(f_{\vec{w},b}(\vec{x}_i)-y_i\right)^2.
+J(\vec{w},b)=\frac{1}{m}\sum_{i=1}^{m}\frac{1}{2}\left(f_{\vec{w},b}(\vec{x}_i)-\ln(\mathrm{SalePrice}_i)\right)^2.
 $$
 
-We minimize squared errors in **sale prices measured in US dollars**. Validation RMSE is the square root of the mean squared prediction error on the held-out fold, so its unit is also US dollars. The factor `1/2` simplifies the derivative without changing the minimizing coefficients.
+We minimize squared errors in **log sale prices**. On a held-out fold containing $m_v$ houses, we calculate:
+
+$$
+\mathrm{log\ RMSE}=\sqrt{\frac{1}{m_v}\sum_{i\in\mathrm{validation}}\left(\hat y_i-\ln(\mathrm{SalePrice}_i)\right)^2}.
+$$
+
+We compare the mean of the five validation scores. Log RMSE is not measured in dollars. The factor `1/2` simplifies the derivative without changing the minimizing coefficients.
 
 **3. Gradient-descent updates.** We will go through each weight, from $w_1$ to $w_n$, and calculate its partial derivative, where $n$ is the number of features (18 in the full model). With learning rate $\alpha$, update each weight and the intercept:
 
@@ -123,13 +130,13 @@ $$
 In this subsection, `i` indexes the weights (`i = 1, ..., n`) and `r` indexes the training houses. The derivatives are:
 
 $$
-\frac{\partial J}{\partial w_i}=\frac{1}{m}\sum_{r=1}^{m}\left(f_{\vec{w},b}(\vec{x}_r)-y_r\right)x_{ri},\qquad
-\frac{\partial J}{\partial b}=\frac{1}{m}\sum_{r=1}^{m}\left(f_{\vec{w},b}(\vec{x}_r)-y_r\right).
+\frac{\partial J}{\partial w_i}=\frac{1}{m}\sum_{r=1}^{m}\left(f_{\vec{w},b}(\vec{x}_r)-\ln(\mathrm{SalePrice}_r)\right)x_{ri},\qquad
+\frac{\partial J}{\partial b}=\frac{1}{m}\sum_{r=1}^{m}\left(f_{\vec{w},b}(\vec{x}_r)-\ln(\mathrm{SalePrice}_r)\right).
 $$
 
 Evaluate all derivatives at the old parameter values, then apply the updates simultaneously.
 
-If we scale features for gradient descent, we fit the scaling parameters on each cross-validation training fold and apply them to its validation fold. Gradient descent estimates the coefficients for a given feature set; cross-validation compares feature sets using RMSE in US dollars. After selecting a model, we fit it on all labeled houses; its predictions are already in US dollars. The unlabeled competition test set may be used for a separate prediction exercise; the course project evaluates accuracy using held-out folds of the labeled data.
+If we scale features for gradient descent, we fit the scaling parameters on each cross-validation training fold and apply them to its validation fold. Gradient descent estimates the coefficients for a given feature set; cross-validation compares candidate models using log RMSE. After selecting a model, we fit it on all labeled houses. To express its log predictions in dollars, use $\widehat{\mathrm{SalePrice}}_i=\exp(\hat y_i)$. The unlabeled competition test set may be used for a separate prediction exercise; the course project evaluates accuracy using held-out folds of the labeled data.
 
 ## References
 
@@ -146,4 +153,4 @@ If we scale features for gradient descent, we fit the scaling parameters on each
 
 1. **Feature types.** After applying the proposed ordinal encodings, are all 18 current candidate features numeric inputs to the model? / 按目前的等级编码处理后，现有 18 个候选特征是否都能作为模型的数值输入？
 2. **Learning rate and scaling.** How should I choose the learning rate and decide which features to scale for gradient descent, without using validation data to fit the scaling rules? / 接下来怎样选择学习率、决定哪些特征需要缩放，并确保缩放规则只由训练数据确定？
-3. **Benchmark comparison / 基准模型比较。** Following the professor's advice, we will use ordinary linear regression estimated by OLS as the benchmark and compare it with a machine-learning regression approach. Does the machine-learning approach achieve a lower mean out-of-sample RMSE in US dollars? Both approaches will use the same validation folds, with preprocessing fitted on training rows only. The benchmark specification and the machine-learning method are still to be decided. With identical features and an unregularized squared-error objective, converged gradient descent and OLS produce essentially the same fitted predictions; changing the optimizer alone is not a distinct predictive model. / 根据教授的建议，我们将普通线性回归（OLS）作为基准，与机器学习回归方案比较，检验后者能否降低以美元衡量的平均样本外 RMSE。两者使用相同的验证折，预处理规则只根据训练部分确定。基准模型的具体设定和机器学习方法仍待确定。同样的特征与无正则化平方误差目标下，收敛后的梯度下降与 OLS 的拟合预测基本相同，因此仅更换求解方法不能构成不同的预测模型。
+3. **Benchmark comparison / 基准模型比较。** Following the professor's advice, we will use ordinary linear regression estimated by OLS as the benchmark and compare it with a machine-learning regression approach. Does the machine-learning approach achieve a lower mean out-of-sample log RMSE? Both approaches will use the same validation folds, with preprocessing fitted on training rows only. The benchmark specification and the machine-learning method are still to be decided. With identical features and an unregularized squared-error objective, converged gradient descent and OLS produce essentially the same fitted predictions; changing the optimizer alone is not a distinct predictive model. / 根据教授的建议，我们将普通线性回归（OLS）作为基准，与机器学习回归方案比较，检验后者能否降低平均样本外 log RMSE。两者使用相同的验证折，预处理规则只根据训练部分确定。基准模型的具体设定和机器学习方法仍待确定。同样的特征与无正则化平方误差目标下，收敛后的梯度下降与 OLS 的拟合预测基本相同，因此仅更换求解方法不能构成不同的预测模型。

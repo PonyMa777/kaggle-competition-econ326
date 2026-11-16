@@ -6,12 +6,28 @@
 
 - **Benchmark：** 用 OLS 估计的普通线性回归；具体特征和模型设定待确定。
 - **机器学习对照方案：** 具体方法待确定；需要说明它与基准模型在设定或训练目标上的实质区别。
-- **比较方式：** 预测 SalePrice（美元），使用相同的五折划分，比较平均验证 RMSE；填补与 scaling 只根据每折训练部分确定。若需要调参，只在外层训练部分内完成，再由保留的验证折评分。
+- **比较方式：** 两种模型均预测 ln(SalePrice)，使用相同的五折划分，比较平均验证 log RMSE；填补与 scaling 只根据每折训练部分确定。若需要调参，只在外层训练部分内完成，再由保留的验证折评分。
 - **关键区别：** 相同特征、相同的无正则化平方误差目标下，OLS 和收敛后的梯度下降得到的预测基本一致；单独把 OLS 换成 gradient descent 不会自动提高准确度。
 - **已有结果的含义：** 下方 A/B 结果比较的是 3 个与 18 个特征的两个线性模型，均由梯度下降拟合。9.42% 的改善来自这两种特征设定的比较，不能据此声称“机器学习胜过普通回归”。
 
-Following the professor's advice, we will keep ordinary linear regression (OLS) as the benchmark and test whether a machine-learning regression approach improves out-of-sample accuracy. We will compare mean validation RMSE in US dollars using identical folds and training-only preprocessing. The exact benchmark specification and competing method remain to be chosen.
+Following the professor's advice, we will keep ordinary linear regression (OLS) as the benchmark and test whether a machine-learning regression approach improves out-of-sample accuracy. We will predict the natural logarithm of sale price and compare mean validation log RMSE using identical folds and training-only preprocessing. The exact benchmark specification and competing method remain to be chosen.
 
+
+## Prediction target and cost / 预测目标与损失函数 — 2026-11-16
+
+令 $y_i=\ln(\mathrm{SalePrice}_i)$，使用自然对数。线性模型预测对数房价：
+
+$$
+\hat y_i=f_{\vec{w},b}(\vec{x}_i)=\vec{w}\cdot\vec{x}_i+b.
+$$
+
+$$
+J(\vec{w},b)=\frac{1}{m}\sum_{i=1}^{m}\frac{1}{2}\left(f_{\vec{w},b}(\vec{x}_i)-\ln(\mathrm{SalePrice}_i)\right)^2.
+$$
+
+梯度下降对每个权重计算 $\partial J/\partial w_i$，并更新截距；完整公式见 [outline](outline.md#proposed-regression-model)。18 个 features 的定义不变，不因目标取 log 而全部取 log。美元预测值可由 $\exp(\hat y_i)$ 得到。
+
+**状态：文档已改为 log 目标；现有训练脚本、系数与验证结果仍属于旧的美元目标，尚未按 log 目标重新训练。** 以下历史数字不能作为新模型的 log RMSE。
 
 ## Five-fold cross-validation / 五折交叉验证 — 2026-11-11
 
@@ -25,7 +41,7 @@ Following the professor's advice, we will keep ordinary linear regression (OLS) 
 
 B 比 A 降低 **3,836.09 美元（9.42%）**，但第 3 折更差、跨折波动更大。这里比较了两种预先确定的特征组合，并未证明每个新增特征都有帮助。
 
-**[查看每折结果、处理规则和代码](results/five_fold_cv/README.md)**。按最低平均验证 RMSE 规则，当前保留 B；下方已有 B 在全体 1,460 套房屋上重新训练的系数。
+**[查看每折结果、处理规则和代码](results/five_fold_cv/README.md)**。在当时的美元目标比较中，按最低平均验证 RMSE 规则选择 B；下方已有 B 在全体 1,460 套房屋上重新训练的系数。
 
 
 ## Gradient descent results / 梯度下降结果 — 2026-11-11
@@ -50,9 +66,10 @@ B 比 A 降低 **3,836.09 美元（9.42%）**，但第 3 折更差、跨折波�
 - [ ] **1. 固定特征定义。** 列出当前 18 个候选特征的计算与编码规则，核对 `train.csv`、`test.csv` 的列名，并检查缺失值和异常年份。
 - [x] **2. 建立预处理流程。** 在每一折训练集上确定未知值的填补规则和数值特征的 scaling 参数，再应用到该折验证集，避免使用验证集信息。
 - [ ] **3. 确定新的比较模型。** 明确 OLS benchmark 的特征和设定，再选择有实质区别的机器学习回归方案；在评估前固定比较规则。
-- [x] **4. 实现并检查梯度下降。** 已完成当前 18 特征模型的全量训练，见上方结果记录。以 `SalePrice`（美元）为目标，写出预测函数、平方误差 cost 和每个权重及截距的更新；选择初始学习率，确认训练 cost 随迭代下降并趋于稳定。
+- [x] **4. 完成原美元目标的梯度下降。** 已完成当前 18 特征模型的全量训练，见上方结果记录。以 `SalePrice`（美元）为目标，写出预测函数、平方误差 cost 和每个权重及截距的更新；选择初始学习率，确认训练 cost 随迭代下降并趋于稳定。
 - [x] **5. 完成原 A/B 五折比较。** 已比较 3 特征与 18 特征线性模型，平均验证 RMSE 分别为 40,701.83 和 36,865.74 美元。这是已有的特征设定比较。
-- [ ] **5a. 执行教授建议的新比较。** 确定两种方案后，在相同外层验证折上比较 OLS benchmark 与机器学习模型；调参仅使用外层训练部分，记录每折误差、平均 RMSE 及波动。
-- [ ] **6. 整理结果与解释。** 报告各模型的美元 RMSE、加入特征后的变化，并说明数值等级编码、异常值处理及局限。
-- [ ] **7. 最终训练与预测。** 用全部 1,460 条带价格数据重新拟合选定流程；模型直接输出美元售价。若另做竞赛预测，再应用到 1,459 条无售价测试数据；课程项目的准确性根据带标签数据的验证折评估。
+- [ ] **4a. 改为 log 目标并重新训练。** 更新训练与交叉验证代码中的目标为 ln(SalePrice)，重新检查梯度收敛和最小二乘解，单独保存新系数、cost 与 log RMSE，不覆盖美元目标的历史结果。
+- [ ] **5a. 执行教授建议的新比较。** 确定两种方案后，在相同外层验证折上比较 OLS benchmark 与机器学习模型；调参仅使用外层训练部分，记录每折 log RMSE、平均值及波动。
+- [ ] **6. 整理结果与解释。** 报告各模型的 log RMSE、加入特征后的变化，并说明数值等级编码、异常值处理及局限。
+- [ ] **7. 最终训练与预测。** 用全部 1,460 条带价格数据重新拟合选定流程；模型输出对数售价，需要美元预测时取 exp。若另做竞赛预测，再应用到 1,459 条无售价测试数据；课程项目的准确性根据带标签数据的验证折评估。
 - [ ] **8. 完成提交文档。** 使 research statement、变量表、统计表、回归方程与实际使用的模型一致；完成 Jupyter notebook 与简短报告，核对篇幅、引用和课程提交要求；确认已与教师讨论进阶方向的研究方案。
