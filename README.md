@@ -1,5 +1,15 @@
 # Kaggle Competition / Econ 326
 
+## 研究步骤 / Research workflow — 2026-11-24
+
+| 步骤 / Step | 我们怎么做 / What we do |
+|---|---|
+| 1 · 定目标 / Set the goal | 用房屋信息预测未见过的房子的成交价，以更低的 log RMSE 为目标。 / Predict sale prices for unseen homes and aim for lower log RMSE. |
+| 2 · 定比较方法 / Set up a fair test | 所有候选方案用相同五折，比较五折验证 log RMSE 的平均值。每轮只用训练部分确定填补和缩放规则。 / Use the same five folds and compare mean validation log RMSE. Fit preprocessing on each training fold. |
+| 3 · 看已有证据 / Start from the evidence | 11 月 22 日报告记录：面积、整体质量、房龄这 3 项得 0.1818，14 项得 0.1314。14 项是目前的一个参照，候选范围仍涵盖原始 79 个变量及其组合。 / The Nov 22 report gives 0.1818 for size, quality and age, and 0.1314 for 14 features. The 14-feature set is a reference point. All 79 original variables and their combinations remain candidates. |
+| 4 · 改一个条件 / Change one thing | 下一步可以加变量、删变量，或把相关变量用 PCA 压缩后再回归。每次固定模型和折，只改特征方案。若试 PCA，在训练折内拟合并选择保留几个主成分。 / Try adding, removing or combining features. Keep the model and folds fixed. For PCA, fit the transformation and choose the component count within the training data. |
+| 5 · 锁定后再验 / Test on fresh data | 同一批数据已经用来选特征，因此当前分数是开发阶段结果。锁定方案后，再用从未参与选择且有真实成交价的数据评估。PCA 对照和最终独立检验均待做。 / The current scores guided feature selection. Freeze the chosen approach, then test on fresh labeled sales. The PCA comparison and independent test are still pending. |
+
 ## Updated comparison plan / 教授建议后的比较方案 — 2026-11-16
 
 **研究重点：保留普通线性回归作为 benchmark，检验机器学习回归能否提高样本外预测准确度。**
